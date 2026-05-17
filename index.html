@@ -450,7 +450,7 @@ const API_URL = '/api/chat';
 
 // Optioneel: webhook voor formulierinzendingen (Make.com / Zapier / eigen backend)
 // Laat leeg om alleen de success-state te tonen
-const FORM_WEBHOOK = '';
+const FORM_WEBHOOK = 'https://hook.eu1.make.com/245bh06ybcfe13c97pb7wyibmmo0b0u9';
 
 const SYSTEM = `Je bent de vriendelijke assistent van OfferzoKlus.nl.
 Je helpt klanten hun klusaanvraag indienen zodat ze 3 gratis offertes ontvangen.
@@ -508,9 +508,44 @@ async function submitForm() {
     return;
   }
 
-  const data = { klus, stad, naam, email, tel, wanneer, omschr, budget, contact: contactVoorkeur };
+  const wanneerLabels = {
+    'zsm': 'Zo snel mogelijk',
+    'maand': 'Binnen een maand',
+    'kwartaal': 'Binnen 3 maanden',
+    'haast': 'Geen haast'
+  };
 
-  // Stuur naar webhook als ingesteld
+  const data = {
+    // Gestructureerde data voor automatische verwerking
+    klus, stad, naam, email, tel,
+    wanneer: wanneerLabels[wanneer] || 'Niet opgegeven',
+    omschrijving: omschr || 'Niet opgegeven',
+    budget: budget || 'Niet opgegeven',
+    contact: contactVoorkeur,
+    datum: new Date().toLocaleDateString('nl-NL', { day: '2-digit', month: '2-digit', year: 'numeric', hour: '2-digit', minute: '2-digit' }),
+
+    // Kant-en-klare mail body voor Make.com
+    mail_onderwerp: `🔨 Nieuwe aanvraag: ${klus} in ${stad}`,
+    mail_body: `NIEUWE AANVRAAG VIA OFFERZIKLUS\n\n` +
+      `━━━━━━━━━━━━━━━━━━━━━━━\n` +
+      `KLUS:         ${klus}\n` +
+      `LOCATIE:      ${stad}\n` +
+      `WANNEER:      ${wanneerLabels[wanneer] || 'Niet opgegeven'}\n` +
+      `BUDGET:       ${budget || 'Niet opgegeven'}\n` +
+      `OMSCHRIJVING: ${omschr || 'Niet opgegeven'}\n` +
+      `━━━━━━━━━━━━━━━━━━━━━━━\n` +
+      `KLANTGEGEVENS\n` +
+      `━━━━━━━━━━━━━━━━━━━━━━━\n` +
+      `NAAM:         ${naam}\n` +
+      `EMAIL:        ${email}\n` +
+      `TELEFOON:     ${tel}\n` +
+      `CONTACT VIA:  ${contactVoorkeur}\n` +
+      `━━━━━━━━━━━━━━━━━━━━━━━\n` +
+      `Ontvangen op: ${new Date().toLocaleDateString('nl-NL', { day: '2-digit', month: '2-digit', year: 'numeric', hour: '2-digit', minute: '2-digit' })}\n\n` +
+      `Stuur deze lead door naar 2-3 vakmannen in de regio.`
+  };
+
+  // Stuur naar Make.com webhook
   if (FORM_WEBHOOK) {
     try {
       await fetch(FORM_WEBHOOK, {
