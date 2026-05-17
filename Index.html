@@ -1,0 +1,612 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="OfferzoKlus — Gratis offertes van 3 vakmannen. Vrijblijvend, altijd.">
+<title>OfferzoKlus — Gratis offertes</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box;}
+:root{
+  --navy:#0d1b2a;
+  --gold:#c9a84c;
+  --gold-light:#e8d08a;
+  --white:#ffffff;
+  --off:#faf8f4;
+  --ink:#1a1a2e;
+  --muted:#7a8a96;
+  --border:#e8e4dc;
+  --fh:'DM Serif Display',Georgia,serif;
+  --fb:'DM Sans',system-ui,sans-serif;
+}
+html{scroll-behavior:smooth;}
+body{font-family:var(--fb);background:var(--white);color:var(--ink);-webkit-font-smoothing:antialiased;}
+
+/* ─── NAV ─── */
+nav{
+  position:fixed;top:0;width:100%;z-index:999;height:60px;padding:0 6%;
+  display:flex;align-items:center;justify-content:space-between;
+  background:rgba(255,255,255,.93);backdrop-filter:blur(16px);
+  border-bottom:1px solid var(--border);
+}
+.logo{font-family:var(--fh);font-size:1.3rem;letter-spacing:-.3px;text-decoration:none;color:var(--navy);}
+.logo em{font-style:italic;color:var(--gold);}
+.nav-r{display:flex;align-items:center;gap:1.75rem;}
+.nav-r a{font-size:.82rem;font-weight:400;color:var(--muted);text-decoration:none;transition:color .2s;}
+.nav-r a:hover{color:var(--navy);}
+.nav-btn{background:var(--navy)!important;color:var(--gold)!important;font-size:.8rem!important;font-weight:600!important;padding:.45rem 1.1rem;border-radius:6px;}
+
+/* ─── HERO ─── */
+.hero{
+  min-height:100vh;background:var(--white);
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  padding:90px 6% 60px;position:relative;overflow:hidden;
+}
+.watermark{
+  position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);
+  font-family:var(--fh);font-size:clamp(14rem,28vw,22rem);
+  color:rgba(13,27,42,.04);white-space:nowrap;
+  pointer-events:none;user-select:none;letter-spacing:-8px;line-height:1;z-index:0;
+}
+.hero-top{position:relative;z-index:2;text-align:center;margin-bottom:2.5rem;}
+.eyebrow{display:inline-flex;align-items:center;gap:7px;font-size:.75rem;font-weight:500;color:var(--muted);letter-spacing:.5px;margin-bottom:1.25rem;}
+.eline{width:24px;height:1px;background:var(--gold);}
+.hero h1{font-family:var(--fh);font-size:clamp(2.5rem,5vw,4rem);font-weight:400;color:var(--navy);letter-spacing:-.5px;line-height:1.05;}
+.hero h1 em{font-style:italic;color:var(--gold);}
+
+/* ─── CARD ─── */
+.fcard{
+  position:relative;z-index:2;
+  background:var(--navy);border-radius:18px;
+  width:100%;max-width:500px;
+  box-shadow:0 2px 4px rgba(13,27,42,.06),0 8px 24px rgba(13,27,42,.1),0 24px 64px rgba(13,27,42,.12);
+  overflow:hidden;
+}
+
+/* card header */
+.card-head{
+  padding:1.25rem 1.5rem .9rem;
+  display:flex;align-items:center;justify-content:space-between;
+}
+.card-brand{display:flex;align-items:center;gap:9px;}
+.card-av{
+  width:34px;height:34px;border-radius:50%;background:var(--gold);
+  display:flex;align-items:center;justify-content:center;
+  font-family:var(--fh);font-size:.75rem;color:var(--navy);flex-shrink:0;
+}
+.card-name{font-family:var(--fh);font-size:.9rem;color:var(--white);letter-spacing:.2px;}
+.card-status{display:flex;align-items:center;gap:5px;font-size:.7rem;color:rgba(255,255,255,.35);}
+.sdot{width:6px;height:6px;background:#4ade80;border-radius:50%;animation:blink 2.5s infinite;}
+@keyframes blink{0%,100%{opacity:1;}50%{opacity:.3;}}
+
+/* ─── TABS ─── */
+.tabs{
+  display:flex;margin:0 1.5rem;
+  border-bottom:1px solid rgba(255,255,255,.08);
+  gap:0;
+}
+.tab-btn{
+  flex:1;padding:.65rem 0;
+  background:none;border:none;cursor:pointer;
+  font-family:var(--fb);font-size:.82rem;font-weight:500;
+  color:rgba(255,255,255,.35);
+  border-bottom:2px solid transparent;
+  transition:color .2s,border-color .2s;
+  margin-bottom:-1px;
+}
+.tab-btn.active{color:var(--gold);border-bottom-color:var(--gold);}
+.tab-btn:hover:not(.active){color:rgba(255,255,255,.6);}
+
+/* ─── FORM TAB ─── */
+.tab-pane{display:none;}
+.tab-pane.active{display:block;}
+
+.form-body{padding:1.2rem 1.5rem 1.4rem;display:flex;flex-direction:column;gap:.85rem;}
+.field-label{display:block;font-size:.72rem;font-weight:600;color:rgba(201,168,76,.8);letter-spacing:.5px;margin-bottom:.35rem;}
+.field-inp, .field-sel, .field-ta{
+  width:100%;background:rgba(255,255,255,.07);
+  border:1px solid rgba(255,255,255,.1);
+  border-radius:8px;padding:.65rem .9rem;
+  font-size:.88rem;font-family:var(--fb);color:var(--white);
+  outline:none;transition:border-color .2s,background .2s;
+  -webkit-appearance:none;
+}
+.field-inp::placeholder,.field-ta::placeholder{color:rgba(255,255,255,.22);}
+.field-inp:focus,.field-sel:focus,.field-ta:focus{border-color:rgba(201,168,76,.45);background:rgba(255,255,255,.1);}
+.field-sel{color:rgba(255,255,255,.75);cursor:pointer;}
+.field-sel option{background:var(--navy);color:white;}
+.field-ta{resize:none;height:72px;line-height:1.55;}
+.field-row{display:grid;grid-template-columns:1fr 1fr;gap:.75rem;}
+.radio-group{display:flex;gap:.75rem;}
+.radio-btn{
+  flex:1;padding:.55rem .75rem;text-align:center;
+  background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.1);
+  border-radius:7px;cursor:pointer;font-size:.82rem;color:rgba(255,255,255,.5);
+  font-family:var(--fb);transition:all .15s;
+}
+.radio-btn.sel{background:rgba(201,168,76,.15);border-color:rgba(201,168,76,.45);color:var(--gold);}
+.form-submit{
+  width:100%;background:var(--gold);color:var(--navy);
+  border:none;border-radius:9px;padding:.85rem;
+  font-family:var(--fb);font-size:.9rem;font-weight:600;
+  cursor:pointer;transition:opacity .2s;letter-spacing:-.1px;margin-top:.25rem;
+}
+.form-submit:hover{opacity:.85;}
+
+/* success state */
+.form-success{
+  padding:2rem 1.5rem 2.5rem;text-align:center;display:none;
+}
+.form-success .check{font-size:2.5rem;margin-bottom:1rem;line-height:1;}
+.form-success h3{font-family:var(--fh);font-size:1.2rem;color:var(--white);margin-bottom:.5rem;}
+.form-success p{font-size:.85rem;color:rgba(255,255,255,.45);font-weight:300;line-height:1.6;}
+.form-success .gold{color:var(--gold);}
+
+/* ─── CHAT TAB ─── */
+.msgs{
+  padding:1.1rem 1.5rem;
+  min-height:220px;max-height:340px;overflow-y:auto;
+  display:flex;flex-direction:column;gap:.85rem;
+}
+.msgs::-webkit-scrollbar{width:3px;}
+.msgs::-webkit-scrollbar-thumb{background:rgba(255,255,255,.1);border-radius:3px;}
+.msg{display:flex;gap:8px;max-width:88%;animation:su .25s ease;}
+@keyframes su{from{opacity:0;transform:translateY(6px);}to{opacity:1;transform:translateY(0);}}
+.msg.user{align-self:flex-end;flex-direction:row-reverse;}
+.bbl{padding:.65rem 1rem;font-size:.88rem;line-height:1.5;font-family:var(--fb);border-radius:16px;}
+.msg.bot .bbl{background:rgba(255,255,255,.07);color:rgba(255,255,255,.85);border-radius:4px 16px 16px 16px;}
+.msg.user .bbl{background:var(--gold);color:var(--navy);font-weight:500;border-radius:16px 4px 16px 16px;}
+.mav{width:28px;height:28px;border-radius:50%;background:var(--gold);display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:auto;font-family:var(--fh);font-size:.6rem;color:var(--navy);}
+.tw{display:flex;gap:3px;padding:11px 13px;background:rgba(255,255,255,.07);border-radius:4px 16px 16px 16px;width:fit-content;}
+.td{width:5px;height:5px;background:rgba(201,168,76,.5);border-radius:50%;animation:tda 1.2s infinite;}
+.td:nth-child(2){animation-delay:.2s;}.td:nth-child(3){animation-delay:.4s;}
+@keyframes tda{0%,100%{transform:translateY(0);opacity:.4;}50%{transform:translateY(-4px);opacity:1;}}
+.chat-foot{padding:.85rem 1.25rem 1.25rem;display:flex;gap:8px;align-items:center;}
+.cinp{flex:1;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.1);border-radius:9px;padding:.65rem .95rem;font-size:.88rem;font-family:var(--fb);color:var(--white);outline:none;transition:border-color .2s,background .2s;}
+.cinp::placeholder{color:rgba(255,255,255,.25);}
+.cinp:focus{border-color:rgba(201,168,76,.45);background:rgba(255,255,255,.1);}
+.csend{background:var(--gold);color:var(--navy);border:none;width:40px;height:40px;border-radius:9px;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:1rem;font-weight:700;flex-shrink:0;transition:opacity .2s,transform .1s;}
+.csend:hover{opacity:.85;}
+.csend:active{transform:scale(.93);}
+
+/* trust */
+.trust{position:relative;z-index:2;display:flex;gap:1.75rem;flex-wrap:wrap;justify-content:center;margin-top:1.75rem;}
+.trust span{font-size:.75rem;color:var(--muted);font-weight:400;display:flex;align-items:center;gap:5px;}
+.trust span::before{content:'✓';color:var(--gold);font-weight:600;}
+
+/* ─── KLUSSEN ─── */
+.klussen{padding:100px 6%;background:var(--off);}
+.klussen-inner{max-width:960px;margin:0 auto;}
+.sec-ey{display:flex;align-items:center;gap:10px;margin-bottom:.9rem;}
+.sec-ey .ln{width:20px;height:1px;background:var(--gold);}
+.sec-ey span{font-size:.72rem;font-weight:500;color:var(--gold);letter-spacing:2px;text-transform:uppercase;}
+.sec-t{font-family:var(--fh);font-size:clamp(1.75rem,3.5vw,2.5rem);font-weight:400;color:var(--navy);margin-bottom:2.5rem;letter-spacing:-.3px;line-height:1.1;}
+.sec-t em{font-style:italic;}
+.klus-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:.85rem;}
+.klus-card{background:var(--white);border:1px solid var(--border);border-radius:12px;padding:1.25rem .85rem;text-align:center;text-decoration:none;transition:border-color .2s,transform .18s;display:block;}
+.klus-card:hover{border-color:var(--gold);transform:translateY(-2px);}
+.ki{font-size:1.6rem;margin-bottom:.6rem;line-height:1;}
+.kn{font-family:var(--fh);font-size:.88rem;color:var(--navy);margin-bottom:.2rem;}
+.kp{font-size:.72rem;color:var(--muted);font-weight:300;}
+
+/* ─── HOW ─── */
+.how{padding:100px 6%;background:var(--white);position:relative;overflow:hidden;}
+.how-wm{position:absolute;top:50%;right:-3%;transform:translateY(-50%);font-family:var(--fh);font-size:16rem;color:rgba(13,27,42,.025);pointer-events:none;user-select:none;letter-spacing:-5px;line-height:1;}
+.how-inner{max-width:960px;margin:0 auto;position:relative;z-index:2;}
+.steps{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:3rem;margin-top:2.5rem;}
+.step-n{font-family:var(--fh);font-style:italic;font-size:2.5rem;color:var(--gold);opacity:.6;line-height:1;margin-bottom:.85rem;}
+.step h3{font-family:var(--fh);font-size:1.1rem;font-weight:400;color:var(--navy);margin-bottom:.5rem;}
+.step p{font-size:.88rem;color:var(--muted);font-weight:300;line-height:1.65;}
+
+/* ─── WHY ─── */
+.why{padding:100px 6%;background:var(--navy);position:relative;overflow:hidden;}
+.why-wm{position:absolute;bottom:-5%;left:-2%;font-family:var(--fh);font-size:18rem;color:rgba(255,255,255,.025);pointer-events:none;user-select:none;letter-spacing:-6px;line-height:1;}
+.why-inner{max-width:960px;margin:0 auto;position:relative;z-index:2;}
+.why .sec-ey .ln{background:rgba(201,168,76,.4);}
+.why .sec-ey span{color:rgba(201,168,76,.6);}
+.why .sec-t{color:var(--white);}
+.why-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:2rem;margin-top:2.5rem;}
+.wi-n{font-family:var(--fh);font-style:italic;font-size:1.5rem;color:var(--gold);opacity:.5;margin-bottom:.75rem;line-height:1;}
+.wi h4{font-family:var(--fh);font-size:1rem;font-weight:400;color:var(--white);margin-bottom:.4rem;}
+.wi p{font-size:.85rem;color:rgba(255,255,255,.38);font-weight:300;line-height:1.65;}
+
+/* ─── CTA ─── */
+.cta{padding:100px 6%;background:var(--off);text-align:center;position:relative;overflow:hidden;}
+.cta-wm{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);font-family:var(--fh);font-size:20rem;color:rgba(13,27,42,.03);pointer-events:none;user-select:none;letter-spacing:-8px;line-height:1;}
+.cta-inner{position:relative;z-index:2;}
+.cta h2{font-family:var(--fh);font-size:clamp(2rem,4vw,3rem);font-weight:400;color:var(--navy);margin-bottom:.75rem;letter-spacing:-.3px;}
+.cta h2 em{font-style:italic;color:var(--gold);}
+.cta p{font-size:.95rem;color:var(--muted);max-width:380px;margin:0 auto 2.5rem;font-weight:300;line-height:1.7;}
+.btn-p{display:inline-block;background:var(--navy);color:var(--gold);font-family:var(--fb);font-size:.9rem;font-weight:600;padding:.9rem 2.25rem;border-radius:9px;text-decoration:none;transition:opacity .2s,transform .15s;}
+.btn-p:hover{opacity:.85;transform:translateY(-1px);}
+
+/* ─── FOOTER ─── */
+footer{padding:2.5rem 6%;background:var(--navy);display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:1rem;border-top:1px solid rgba(201,168,76,.1);}
+.ft-logo{font-family:var(--fh);font-size:1.15rem;color:var(--white);text-decoration:none;}
+.ft-logo em{font-style:italic;color:var(--gold);}
+footer p{font-size:.75rem;color:rgba(255,255,255,.2);}
+.ftl{display:flex;gap:1.5rem;}
+.ftl a{font-size:.75rem;color:rgba(255,255,255,.25);text-decoration:none;transition:color .2s;}
+.ftl a:hover{color:rgba(255,255,255,.65);}
+
+@media(max-width:640px){
+  .nav-r .hl{display:none;}
+  .hero{padding-top:80px;}
+  .watermark{font-size:45vw;}
+  .fcard{max-width:100%;}
+  .field-row{grid-template-columns:1fr;}
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <a class="logo" href="#">Offerzo<em>Klus</em></a>
+  <div class="nav-r">
+    <a class="hl" href="#klussen">Klussen</a>
+    <a class="hl" href="#hoe">Hoe het werkt</a>
+    <a href="#start" class="nav-btn">Offerte aanvragen</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero" id="start">
+  <div class="watermark">klus</div>
+
+  <div class="hero-top">
+    <div class="eyebrow">
+      <span class="eline"></span>Gratis · Vrijblijvend · 3 vakmannen<span class="eline"></span>
+    </div>
+    <h1>Jouw klus.<br><em>Geregeld.</em></h1>
+  </div>
+
+  <!-- FLOATING CARD -->
+  <div class="fcard">
+
+    <!-- Header -->
+    <div class="card-head">
+      <div class="card-brand">
+        <div class="card-av">Ok</div>
+        <div>
+          <div class="card-name">OfferzoKlus</div>
+          <div class="card-status"><span class="sdot"></span> Reageert direct</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Tabs -->
+    <div class="tabs">
+      <button class="tab-btn active" onclick="switchTab('form',this)">📋 Formulier</button>
+      <button class="tab-btn" onclick="switchTab('chat',this)">💬 Chat</button>
+    </div>
+
+    <!-- ── FORMULIER TAB ── -->
+    <div class="tab-pane active" id="tab-form">
+      <div class="form-body" id="formBody">
+
+        <div>
+          <label class="field-label">Wat voor klus?</label>
+          <input class="field-inp" id="f-klus" type="text" placeholder="Bijv. dak laten repareren, badkamer verbouwen..."/>
+        </div>
+
+        <div class="field-row">
+          <div>
+            <label class="field-label">Stad of postcode</label>
+            <input class="field-inp" id="f-stad" type="text" placeholder="Bijv. Amsterdam"/>
+          </div>
+          <div>
+            <label class="field-label">Wanneer?</label>
+            <select class="field-sel" id="f-wanneer">
+              <option value="">Kies...</option>
+              <option value="zsm">Zo snel mogelijk</option>
+              <option value="maand">Binnen een maand</option>
+              <option value="kwartaal">Binnen 3 maanden</option>
+              <option value="haast">Geen haast</option>
+            </select>
+          </div>
+        </div>
+
+        <div>
+          <label class="field-label">Omschrijving (optioneel)</label>
+          <textarea class="field-ta" id="f-omschr" placeholder="Geef een korte beschrijving van de klus..."></textarea>
+        </div>
+
+        <div>
+          <label class="field-label">Budget (optioneel)</label>
+          <input class="field-inp" id="f-budget" type="text" placeholder="Bijv. €2.000 of weet ik niet"/>
+        </div>
+
+        <div class="field-row">
+          <div>
+            <label class="field-label">Naam</label>
+            <input class="field-inp" id="f-naam" type="text" placeholder="Jouw naam"/>
+          </div>
+          <div>
+            <label class="field-label">Telefoon</label>
+            <input class="field-inp" id="f-tel" type="tel" placeholder="06 — — — —"/>
+          </div>
+        </div>
+
+        <div>
+          <label class="field-label">E-mailadres</label>
+          <input class="field-inp" id="f-email" type="email" placeholder="naam@email.nl"/>
+        </div>
+
+        <div>
+          <label class="field-label">Hoe wil je benaderd worden?</label>
+          <div class="radio-group">
+            <button class="radio-btn sel" onclick="setContact(this,'bellen')">📞 Bellen</button>
+            <button class="radio-btn" onclick="setContact(this,'mailen')">✉️ Mailen</button>
+            <button class="radio-btn" onclick="setContact(this,'beide')">Beide</button>
+          </div>
+        </div>
+
+        <button class="form-submit" onclick="submitForm()">
+          Offerte aanvragen — gratis en vrijblijvend →
+        </button>
+
+      </div>
+
+      <!-- Success state -->
+      <div class="form-success" id="formSuccess">
+        <div class="check">✅</div>
+        <h3>Aanvraag ontvangen!</h3>
+        <p>Je wordt binnen <span class="gold">24 uur</span> benaderd door <span class="gold">3 gecheckte vakmannen</span>.<br><br>Je gegevens worden alleen gedeeld met de vakmannen die reageren — verder niks.</p>
+      </div>
+    </div>
+
+    <!-- ── CHAT TAB ── -->
+    <div class="tab-pane" id="tab-chat">
+      <div class="msgs" id="msgs"></div>
+      <div class="chat-foot">
+        <input class="cinp" id="inp" placeholder="Typ je antwoord..." autocomplete="off"/>
+        <button class="csend" onclick="send()">→</button>
+      </div>
+    </div>
+
+  </div><!-- /fcard -->
+
+  <div class="trust">
+    <span>Altijd gratis</span>
+    <span>Reactie binnen 24u</span>
+    <span>Gecheckte vakmannen</span>
+    <span>Geen spam</span>
+  </div>
+</section>
+
+<!-- KLUSSEN -->
+<section class="klussen" id="klussen">
+  <div class="klussen-inner">
+    <div class="sec-ey"><span class="ln"></span><span>Populaire klussen</span></div>
+    <h2 class="sec-t">Wat wil je<br><em>laten doen?</em></h2>
+    <div class="klus-grid">
+      <a href="#start" class="klus-card"><div class="ki">🏠</div><div class="kn">Dakdekker</div><div class="kp">Vanaf €800</div></a>
+      <a href="#start" class="klus-card"><div class="ki">🎨</div><div class="kn">Schilder</div><div class="kp">Vanaf €400</div></a>
+      <a href="#start" class="klus-card"><div class="ki">☀️</div><div class="kn">Zonnepanelen</div><div class="kp">Vanaf €4.000</div></a>
+      <a href="#start" class="klus-card"><div class="ki">🚿</div><div class="kn">Badkamer</div><div class="kp">Vanaf €3.500</div></a>
+      <a href="#start" class="klus-card"><div class="ki">🌿</div><div class="kn">Tuinaanleg</div><div class="kp">Vanaf €1.200</div></a>
+      <a href="#start" class="klus-card"><div class="ki">⚡</div><div class="kn">Elektricien</div><div class="kp">Vanaf €150</div></a>
+      <a href="#start" class="klus-card"><div class="ki">🔧</div><div class="kn">Loodgieter</div><div class="kp">Vanaf €120</div></a>
+      <a href="#start" class="klus-card"><div class="ki">🪟</div><div class="kn">Kozijnen</div><div class="kp">Vanaf €600</div></a>
+      <a href="#start" class="klus-card"><div class="ki">🏗️</div><div class="kn">Aannemer</div><div class="kp">Maatwerk</div></a>
+      <a href="#start" class="klus-card"><div class="ki">➕</div><div class="kn">Andere klus</div><div class="kp">Vertel het ons</div></a>
+    </div>
+  </div>
+</section>
+
+<!-- HOW -->
+<section class="how" id="hoe">
+  <div class="how-wm">3</div>
+  <div class="how-inner">
+    <div class="sec-ey"><span class="ln"></span><span>Zo werkt het</span></div>
+    <h2 class="sec-t">Klaar in <em>3 stappen</em></h2>
+    <div class="steps">
+      <div class="step"><div class="step-n">01</div><h3>Beschrijf jouw klus</h3><p>Vul het formulier in of chat met onze assistent. Duurt twee minuten — niet meer.</p></div>
+      <div class="step"><div class="step-n">02</div><h3>Wij vinden 3 vakmannen</h3><p>We matchen jouw klus aan gecheckte vakmannen in jouw regio. Automatisch, gratis.</p></div>
+      <div class="step"><div class="step-n">03</div><h3>Jij kiest de beste</h3><p>Vergelijk offertes en reviews. Kies wie je belt. Jij betaalt nooit iets aan OfferzoKlus.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- WHY -->
+<section class="why">
+  <div class="why-wm">ok</div>
+  <div class="why-inner">
+    <div class="sec-ey"><span class="ln"></span><span>Waarom OfferzoKlus</span></div>
+    <h2 class="sec-t" style="color:white;">Jij betaalt <em>nooit iets</em></h2>
+    <div class="why-grid">
+      <div class="wi"><div class="wi-n">—</div><h4>Privacy gewaarborgd</h4><p>Je gegevens worden alleen gedeeld met vakmannen die reageren op jouw klus. Nooit verder.</p></div>
+      <div class="wi"><div class="wi-n">—</div><h4>Gecheckte vakmannen</h4><p>Elk bedrijf in ons netwerk is geverifieerd. Geen cowboys, geen verrassingen achteraf.</p></div>
+      <div class="wi"><div class="wi-n">—</div><h4>Eerlijke reviews</h4><p>Lees ervaringen van andere klanten voordat je een keuze maakt. Transparant en onafhankelijk.</p></div>
+      <div class="wi"><div class="wi-n">—</div><h4>Reactie binnen 24 uur</h4><p>Drie offertes snel in je inbox. Geen weken wachten, geen telefoontjes plegen.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta">
+  <div class="cta-wm">klus</div>
+  <div class="cta-inner">
+    <h2>Klaar voor<br><em>jouw klus?</em></h2>
+    <p>Gratis, vrijblijvend en binnen 2 minuten ingediend.</p>
+    <a href="#start" class="btn-p">Start aanvraag — het is gratis →</a>
+  </div>
+</section>
+
+<footer>
+  <a class="ft-logo" href="#">Offerzo<em>Klus</em></a>
+  <p>© 2025 OfferzoKlus.nl — Gratis offertes voor elke klus</p>
+  <div class="ftl"><a href="#">Privacy</a><a href="#">Contact</a><a href="#">Voor bedrijven</a></div>
+</footer>
+
+<script>
+// ─── CONFIG ─────────────────────────────────────────────
+// Na deployment: vervang dit door jouw Vercel URL
+// Bijv. 'https://offerziklus.vercel.app/api/chat'
+const API_URL = '/api/chat';
+
+// Optioneel: webhook voor formulierinzendingen (Make.com / Zapier / eigen backend)
+// Laat leeg om alleen de success-state te tonen
+const FORM_WEBHOOK = '';
+
+const SYSTEM = `Je bent de vriendelijke assistent van OfferzoKlus.nl.
+Je helpt klanten hun klusaanvraag indienen zodat ze 3 gratis offertes ontvangen.
+
+TOON: casual, warm, kort, menselijk. Gewoon Nederlands, nooit robotachtig.
+
+STEL TELKENS MAAR ÉÉN VRAAG — in deze volgorde:
+1. Wat voor klus wil de klant laten doen?
+2. In welke stad of postcode?
+3. Details over de klus (grootte, situatie, materiaal)?
+4. Wanneer moet het gebeuren?
+5. Heeft de klant een budget in gedachten? (mag "weet ik niet" zijn)
+6. Liever gebeld of gemaild worden?
+
+REGELS:
+- Klant betaalt NOOIT iets
+- Beloof altijd 3 offertes binnen 24 uur van gecheckte vakmannen
+- Geef aan het einde een korte prijsindicatie
+- Weet de klant iets niet, geef een concreet voorbeeld
+
+AFSLUITING:
+Vat de klus kort samen. Geef een globale prijsindicatie.
+Zeg dat ze binnen 24 uur worden benaderd door 3 gecheckte vakmannen.
+Vraag daarna alleen: naam, e-mailadres en telefoonnummer.
+Zeg erbij: "Je gegevens deel ik alleen met de vakmannen die reageren — verder niks."`;
+
+// ─── TABS ───────────────────────────────────────────────
+function switchTab(name, btn) {
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  document.querySelectorAll('.tab-pane').forEach(p => p.classList.remove('active'));
+  btn.classList.add('active');
+  document.getElementById('tab-' + name).classList.add('active');
+}
+
+// ─── FORMULIER ──────────────────────────────────────────
+let contactVoorkeur = 'bellen';
+function setContact(btn, val) {
+  document.querySelectorAll('.radio-btn').forEach(b => b.classList.remove('sel'));
+  btn.classList.add('sel');
+  contactVoorkeur = val;
+}
+
+async function submitForm() {
+  const klus    = document.getElementById('f-klus').value.trim();
+  const stad    = document.getElementById('f-stad').value.trim();
+  const naam    = document.getElementById('f-naam').value.trim();
+  const email   = document.getElementById('f-email').value.trim();
+  const tel     = document.getElementById('f-tel').value.trim();
+  const wanneer = document.getElementById('f-wanneer').value;
+  const omschr  = document.getElementById('f-omschr').value.trim();
+  const budget  = document.getElementById('f-budget').value.trim();
+
+  if (!klus || !stad || !naam || !email || !tel) {
+    alert('Vul alle verplichte velden in (klus, stad, naam, email en telefoon).');
+    return;
+  }
+
+  const data = { klus, stad, naam, email, tel, wanneer, omschr, budget, contact: contactVoorkeur };
+
+  // Stuur naar webhook als ingesteld
+  if (FORM_WEBHOOK) {
+    try {
+      await fetch(FORM_WEBHOOK, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(data)
+      });
+    } catch(e) {
+      console.error('Webhook fout:', e);
+    }
+  }
+
+  // Toon success state
+  document.getElementById('formBody').style.display = 'none';
+  document.getElementById('formSuccess').style.display = 'block';
+}
+
+// Klus-grid vult formulier in
+document.querySelectorAll('.klus-card').forEach(c => {
+  c.addEventListener('click', e => {
+    e.preventDefault();
+    const naam = c.querySelector('.kn').textContent;
+    document.getElementById('start').scrollIntoView({ behavior: 'smooth' });
+    setTimeout(() => {
+      document.getElementById('f-klus').value = naam;
+      // Zorg dat formulier tab actief is
+      const formBtn = document.querySelector('.tab-btn');
+      switchTab('form', formBtn);
+    }, 600);
+  });
+});
+
+// ─── CHAT ───────────────────────────────────────────────
+let history = [], busy = false;
+const msgsEl = document.getElementById('msgs');
+const inpEl  = document.getElementById('inp');
+
+function addMsg(text, role) {
+  const d = document.createElement('div');
+  d.className = `msg ${role}`;
+  const bbl = `<div class="bbl">${text.replace(/\n/g, '<br>')}</div>`;
+  d.innerHTML = role === 'bot' ? `<div class="mav">Ok</div>${bbl}` : bbl;
+  msgsEl.appendChild(d);
+  msgsEl.scrollTop = msgsEl.scrollHeight;
+}
+function showTyping() {
+  const d = document.createElement('div');
+  d.className = 'msg bot'; d.id = 'ty';
+  d.innerHTML = `<div class="mav">Ok</div><div class="tw"><div class="td"></div><div class="td"></div><div class="td"></div></div>`;
+  msgsEl.appendChild(d); msgsEl.scrollTop = msgsEl.scrollHeight;
+}
+function hideTyping() { document.getElementById('ty')?.remove(); }
+
+async function callAPI(msgs) {
+  const r = await fetch(API_URL, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ messages: msgs, system: SYSTEM })
+  });
+  const data = await r.json();
+  if (!r.ok) throw new Error(data.error || 'API fout');
+  return data.content[0].text;
+}
+
+async function send() {
+  const t = inpEl.value.trim();
+  if (!t || busy) return;
+  inpEl.value = ''; addMsg(t, 'user');
+  history.push({ role: 'user', content: t });
+  busy = true; showTyping();
+  try {
+    const rep = await callAPI(history);
+    history.push({ role: 'assistant', content: rep });
+    hideTyping(); addMsg(rep, 'bot');
+  } catch(e) {
+    hideTyping();
+    addMsg('Even een storing — probeer het opnieuw.', 'bot');
+  }
+  busy = false;
+}
+
+inpEl.addEventListener('keydown', e => { if (e.key === 'Enter') send(); });
+
+// Start chatbot
+(async () => {
+  busy = true; showTyping();
+  try {
+    const g = await callAPI([{ role: 'user', content: 'START' }]);
+    history.push({ role: 'user', content: 'START' }, { role: 'assistant', content: g });
+    hideTyping(); addMsg(g, 'bot');
+  } catch(e) {
+    hideTyping();
+    addMsg('Hey! Welkom bij OfferzoKlus 👋 Wat voor klus wil je laten doen?', 'bot');
+  }
+  busy = false;
+})();
+</script>
+</body>
+</html>
