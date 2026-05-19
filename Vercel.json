@@ -1,7 +1,14 @@
 {
   "version": 2,
+  "builds": [
+    { "src": "api/chat.js", "use": "@vercel/node" },
+    { "src": "api/webhook.js", "use": "@vercel/node" }
+  ],
   "routes": [
     { "src": "/api/chat", "dest": "/api/chat.js" },
-    { "src": "/(.*)", "dest": "/Index.html" }
+    { "src": "/api/webhook", "dest": "/api/webhook.js" },
+    { "src": "/vakman", "dest": "/vakman.html" },
+    { "src": "/vakman.html", "dest": "/vakman.html" },
+    { "src": "/(.*)", "dest": "/index.html" }
   ]
 }
