@@ -1,0 +1,702 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Sluit je aan bij OfferzoKlus en ontvang nieuwe klanten in jouw regio. Betaal alleen per ontvangen lead. Eerste maand gratis.">
+<title>Voor vakmannen — OfferzoKlus</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box;}
+:root{
+  --navy:#0d1b2a;
+  --navy-mid:#0d2b4e;
+  --navy-light:#1a3a5c;
+  --gold:#c9a84c;
+  --gold-light:#e8d08a;
+  --gold-dark:#a88530;
+  --gold-pale:#faf6ec;
+  --cream:#faf8f4;
+  --white:#ffffff;
+  --ink:#111827;
+  --mid:#374151;
+  --muted:#6b7280;
+  --border:#e5e7eb;
+  --border-mid:#d1d5db;
+  --success:#16a34a;
+  --success-bg:#f0fdf4;
+  --fh:'DM Serif Display',Georgia,serif;
+  --fb:'DM Sans',system-ui,sans-serif;
+}
+html{scroll-behavior:smooth;}
+body{font-family:var(--fb);background:var(--cream);color:var(--ink);line-height:1.65;-webkit-font-smoothing:antialiased;}
+.container{max-width:1080px;margin:0 auto;padding:0 5%;}
+
+/* NAV */
+nav{position:fixed;top:0;width:100%;z-index:999;height:64px;background:rgba(13,27,42,.97);backdrop-filter:blur(20px);border-bottom:1px solid rgba(201,168,76,.15);}
+.nav-inner{max-width:1080px;margin:0 auto;padding:0 5%;height:100%;display:flex;align-items:center;justify-content:space-between;}
+.logo{font-family:var(--fh);font-size:1.35rem;letter-spacing:-.3px;text-decoration:none;color:white;}
+.logo em{font-style:italic;color:var(--gold);}
+.nav-r{display:flex;align-items:center;gap:1.5rem;}
+.nav-r a{font-size:.83rem;color:rgba(255,255,255,.5);text-decoration:none;transition:color .2s;}
+.nav-r a:hover{color:rgba(255,255,255,.9);}
+.nav-klant{background:rgba(201,168,76,.12)!important;color:var(--gold)!important;padding:.4rem 1rem;border-radius:6px;font-size:.83rem!important;border:1px solid rgba(201,168,76,.25);}
+.nav-cta{background:var(--gold)!important;color:var(--navy)!important;padding:.45rem 1.1rem;border-radius:7px;font-size:.83rem!important;font-weight:600!important;}
+
+/* HERO */
+.hero{
+  background:var(--navy);
+  padding:110px 5% 80px;
+  position:relative;overflow:hidden;
+}
+.hero-glow{position:absolute;top:-20%;right:-10%;width:60%;height:80%;background:radial-gradient(ellipse,rgba(201,168,76,.06) 0%,transparent 65%);pointer-events:none;}
+.hero-wm{position:absolute;bottom:-10%;right:-2%;font-family:var(--fh);font-size:20vw;color:rgba(201,168,76,.025);line-height:1;pointer-events:none;user-select:none;letter-spacing:-8px;}
+.hero-inner{max-width:1080px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:center;position:relative;z-index:2;}
+.hero-badge{display:inline-flex;align-items:center;gap:7px;background:rgba(22,163,74,.12);border:1px solid rgba(22,163,74,.25);color:#4ade80;font-size:.75rem;font-weight:500;letter-spacing:.3px;padding:5px 13px;border-radius:100px;margin-bottom:1.5rem;width:fit-content;}
+.bdot{width:6px;height:6px;background:#4ade80;border-radius:50%;animation:pulse 2.5s infinite;}
+@keyframes pulse{0%,100%{opacity:1;}50%{opacity:.25;}}
+.hero h1{font-family:var(--fh);font-size:clamp(2.5rem,5vw,4rem);font-weight:400;line-height:1.05;letter-spacing:-.3px;color:white;margin-bottom:1.1rem;}
+.hero h1 em{font-style:italic;color:var(--gold);}
+.hero-sub{font-size:1rem;color:rgba(255,255,255,.55);max-width:440px;margin-bottom:2rem;font-weight:300;line-height:1.7;}
+.hero-btns{display:flex;gap:.75rem;flex-wrap:wrap;margin-bottom:2.5rem;}
+.btn-gold{background:var(--gold);color:var(--navy);border:none;padding:.85rem 1.85rem;border-radius:10px;font-family:var(--fb);font-size:.92rem;font-weight:600;cursor:pointer;text-decoration:none;display:inline-block;transition:background .2s,transform .15s;}
+.btn-gold:hover{background:var(--gold-light);transform:translateY(-2px);}
+.btn-ghost{background:transparent;color:rgba(255,255,255,.6);border:1px solid rgba(255,255,255,.18);padding:.85rem 1.5rem;border-radius:10px;font-family:var(--fb);font-size:.88rem;cursor:pointer;text-decoration:none;display:inline-block;transition:border-color .2s,color .2s;}
+.btn-ghost:hover{border-color:rgba(255,255,255,.45);color:white;}
+.hero-promise{display:flex;flex-direction:column;gap:.5rem;}
+.promise-item{display:flex;align-items:center;gap:8px;font-size:.82rem;color:rgba(255,255,255,.5);}
+.promise-item::before{content:'✓';color:var(--gold);font-weight:700;font-size:.9rem;}
+
+/* HERO PRIJSKAART */
+.hero-card{background:white;border-radius:18px;overflow:hidden;box-shadow:0 4px 24px rgba(0,0,0,.15),0 24px 80px rgba(0,0,0,.18);}
+.hc-top{background:var(--navy-mid);padding:1.1rem 1.4rem;border-bottom:1px solid rgba(201,168,76,.15);}
+.hc-label{font-size:.68rem;font-weight:600;color:rgba(201,168,76,.6);letter-spacing:1.5px;text-transform:uppercase;margin-bottom:4px;}
+.hc-title{font-family:var(--fh);font-size:1rem;color:white;letter-spacing:.2px;}
+.hc-body{padding:1.25rem 1.4rem;}
+.price-row{display:flex;align-items:center;justify-content:space-between;padding:.75rem 0;border-bottom:.5px solid var(--border);}
+.price-row:last-child{border-bottom:none;}
+.pr-niche{font-size:.9rem;font-weight:500;color:var(--ink);}
+.pr-sub{font-size:.72rem;color:var(--muted);margin-top:1px;}
+.pr-price{text-align:right;}
+.pr-amount{font-family:var(--fh);font-size:1.1rem;color:var(--navy);}
+.pr-per{font-size:.7rem;color:var(--muted);}
+.pr-comp{font-size:.68rem;color:var(--muted);text-decoration:line-through;}
+.hc-footer{background:var(--gold-pale);padding:.85rem 1.4rem;border-top:.5px solid rgba(201,168,76,.2);display:flex;align-items:center;gap:8px;}
+.hc-footer-text{font-size:.78rem;color:var(--gold-dark);font-weight:500;}
+.hc-footer-icon{font-size:1rem;}
+
+/* STATS BAR */
+.stats-bar{background:var(--gold);padding:.85rem 5%;display:flex;gap:0;flex-wrap:wrap;}
+.stat-item{flex:1;min-width:160px;text-align:center;padding:.5rem 1rem;border-right:1px solid rgba(13,27,42,.15);}
+.stat-item:last-child{border-right:none;}
+.stat-num{font-family:var(--fh);font-size:1.6rem;color:var(--navy);letter-spacing:-1px;line-height:1;margin-bottom:2px;}
+.stat-label{font-size:.72rem;color:rgba(13,27,42,.6);font-weight:500;}
+
+/* SECTIONS */
+.section{padding:90px 0;}
+.section-white{background:white;}
+.section-cream{background:var(--cream);}
+.section-navy{background:var(--navy);}
+.section-gold{background:var(--gold-pale);border-top:1px solid rgba(201,168,76,.2);}
+.ey-row{display:flex;align-items:center;gap:10px;margin-bottom:.85rem;}
+.ey-line{width:22px;height:2px;background:var(--gold);}
+.ey-text{font-size:.72rem;font-weight:600;color:var(--gold);letter-spacing:2px;text-transform:uppercase;}
+.sec-h{font-family:var(--fh);font-size:clamp(1.85rem,3.8vw,2.8rem);font-weight:400;color:var(--ink);letter-spacing:-.3px;line-height:1.1;margin-bottom:.75rem;}
+.sec-h em{font-style:italic;color:var(--navy-mid);}
+.sec-sub{font-size:.98rem;color:var(--muted);font-weight:300;line-height:1.7;max-width:520px;}
+
+/* HOW IT WORKS */
+.steps{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:2rem;margin-top:3rem;}
+.step{position:relative;}
+.step-n{width:44px;height:44px;border-radius:50%;background:var(--navy);color:var(--gold);display:flex;align-items:center;justify-content:center;font-family:var(--fh);font-size:1.1rem;margin-bottom:1rem;border:1.5px solid rgba(201,168,76,.3);}
+.step h3{font-family:var(--fh);font-size:1.05rem;color:var(--ink);margin-bottom:.4rem;}
+.step p{font-size:.88rem;color:var(--muted);font-weight:300;line-height:1.65;}
+
+/* VOORDELEN */
+.voordelen-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:1.25rem;margin-top:2.5rem;}
+.vcard{background:white;border:1.5px solid var(--border);border-radius:16px;padding:1.5rem;transition:border-color .2s,transform .18s;}
+.vcard:hover{border-color:rgba(201,168,76,.4);transform:translateY(-2px);}
+.vcard-icon{width:44px;height:44px;border-radius:12px;background:rgba(201,168,76,.1);border:1px solid rgba(201,168,76,.2);display:flex;align-items:center;justify-content:center;font-size:1.3rem;margin-bottom:1rem;}
+.vcard h4{font-family:var(--fh);font-size:1rem;color:var(--ink);margin-bottom:.4rem;}
+.vcard p{font-size:.87rem;color:var(--muted);font-weight:300;line-height:1.65;}
+
+/* PRIJZEN SECTIE */
+.prijs-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:1rem;margin-top:2.5rem;}
+.pcard{background:white;border:1.5px solid var(--border);border-radius:14px;padding:1.25rem;transition:border-color .2s;}
+.pcard:hover{border-color:var(--gold);}
+.pcard.featured{border-color:var(--gold);background:var(--gold-pale);}
+.pcard-niche{font-family:var(--fh);font-size:1rem;color:var(--ink);margin-bottom:.2rem;}
+.pcard-omschr{font-size:.75rem;color:var(--muted);margin-bottom:.85rem;font-weight:300;}
+.pcard-prijs{font-family:var(--fh);font-size:1.6rem;color:var(--navy);letter-spacing:-1px;line-height:1;margin-bottom:2px;}
+.pcard-per{font-size:.72rem;color:var(--muted);}
+.pcard-vs{font-size:.72rem;color:var(--muted);margin-top:4px;}
+.pcard-vs span{text-decoration:line-through;}
+.pcard-badge{display:inline-block;background:rgba(22,163,74,.1);color:var(--success);font-size:.68rem;font-weight:600;padding:2px 8px;border-radius:100px;margin-top:6px;border:1px solid rgba(22,163,74,.2);}
+
+/* AANMELDFORMULIER */
+.form-wrap{max-width:640px;margin:0 auto;}
+.form-card{background:white;border-radius:20px;border:1px solid var(--border);overflow:hidden;box-shadow:0 4px 40px rgba(13,27,42,.08);}
+.form-top{background:var(--navy-mid);padding:1.2rem 1.6rem;border-bottom:1px solid rgba(201,168,76,.15);}
+.form-top-title{font-family:var(--fh);font-size:1.05rem;color:white;margin-bottom:3px;}
+.form-top-sub{font-size:.78rem;color:rgba(255,255,255,.4);}
+.form-body{padding:1.4rem 1.6rem;display:flex;flex-direction:column;gap:.85rem;}
+.fl{display:block;font-size:.7rem;font-weight:600;color:var(--navy);letter-spacing:.5px;text-transform:uppercase;margin-bottom:.3rem;}
+.fi,.fs,.fta{width:100%;background:var(--cream);border:1.5px solid var(--border);border-radius:8px;padding:.62rem .9rem;font-size:.9rem;font-family:var(--fb);color:var(--ink);outline:none;transition:border-color .2s,background .2s;}
+.fi:focus,.fs:focus,.fta:focus{border-color:var(--gold);background:white;}
+.fi::placeholder,.fta::placeholder{color:var(--muted);}
+.fs{cursor:pointer;-webkit-appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%236B7280' stroke-width='2'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 12px center;padding-right:32px;}
+.f2{display:grid;grid-template-columns:1fr 1fr;gap:.75rem;}
+.fgroup{display:flex;flex-direction:column;}
+.niche-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:.5rem;}
+.niche-btn{background:var(--cream);border:1.5px solid var(--border);border-radius:8px;padding:.5rem .4rem;text-align:center;cursor:pointer;font-size:.78rem;color:var(--muted);font-family:var(--fb);transition:all .15s;}
+.niche-btn.sel{background:rgba(201,168,76,.1);border-color:var(--gold);color:var(--gold-dark);font-weight:500;}
+.form-submit{width:100%;background:var(--navy);color:var(--gold);border:none;border-radius:9px;padding:.85rem;font-family:var(--fb);font-size:.92rem;font-weight:600;cursor:pointer;transition:background .2s;margin-top:.25rem;}
+.form-submit:hover{background:var(--navy-mid);}
+.form-note{font-size:.68rem;color:var(--muted);text-align:center;margin-top:.5rem;line-height:1.5;}
+.form-success{padding:2rem 1.6rem;text-align:center;display:none;}
+.fs-icon{font-size:2.5rem;margin-bottom:.75rem;}
+.form-success h3{font-family:var(--fh);font-size:1.2rem;color:var(--navy);margin-bottom:.5rem;}
+.form-success p{font-size:.85rem;color:var(--muted);line-height:1.65;}
+.fs-hl{color:var(--gold-dark);font-weight:600;}
+
+/* FAQ */
+.faq-list{display:flex;flex-direction:column;gap:.75rem;margin-top:2.5rem;max-width:720px;}
+.faq-item{background:white;border:1px solid var(--border);border-radius:12px;overflow:hidden;}
+.faq-q{width:100%;background:none;border:none;padding:1rem 1.25rem;text-align:left;font-family:var(--fb);font-size:.92rem;font-weight:500;color:var(--ink);cursor:pointer;display:flex;justify-content:space-between;align-items:center;transition:background .2s;}
+.faq-q:hover{background:var(--cream);}
+.faq-icon{font-size:.8rem;color:var(--gold);transition:transform .25s;flex-shrink:0;}
+.faq-a{max-height:0;overflow:hidden;transition:max-height .3s ease,padding .3s;}
+.faq-a.open{max-height:200px;padding:0 1.25rem 1rem;}
+.faq-a p{font-size:.88rem;color:var(--muted);font-weight:300;line-height:1.7;}
+.faq-item.active .faq-icon{transform:rotate(45deg);}
+
+/* TESTIMONIALS */
+.testi-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:1.25rem;margin-top:2.5rem;}
+.tcard{background:var(--cream);border:1.5px solid var(--border);border-radius:16px;padding:1.5rem;}
+.tcard-quote{font-family:var(--fh);font-style:italic;font-size:.97rem;color:var(--mid);line-height:1.65;margin-bottom:1rem;}
+.tcard-footer{display:flex;align-items:center;gap:10px;}
+.tcard-av{width:36px;height:36px;border-radius:50%;background:var(--navy);display:flex;align-items:center;justify-content:center;font-family:var(--fh);font-size:.75rem;color:var(--gold);flex-shrink:0;}
+.tcard-name{font-size:.85rem;font-weight:500;color:var(--ink);}
+.tcard-niche{font-size:.75rem;color:var(--gold-dark);}
+
+/* VERGELIJKING */
+.vergelijk{background:white;border-radius:16px;border:1px solid var(--border);overflow:hidden;margin-top:2.5rem;}
+.verg-head{display:grid;grid-template-columns:2fr 1fr 1fr;background:var(--navy);padding:.85rem 1.25rem;}
+.verg-hl{font-size:.78rem;font-weight:600;color:rgba(255,255,255,.4);letter-spacing:.5px;}
+.verg-hl.ok{color:var(--gold);}
+.verg-row{display:grid;grid-template-columns:2fr 1fr 1fr;padding:.85rem 1.25rem;border-bottom:.5px solid var(--border);align-items:center;}
+.verg-row:last-child{border-bottom:none;}
+.verg-row:nth-child(even){background:var(--cream);}
+.verg-label{font-size:.88rem;color:var(--ink);}
+.verg-val{font-size:.85rem;text-align:center;}
+.v-good{color:var(--success);}
+.v-bad{color:#dc2626;}
+.v-mid{color:var(--muted);}
+
+/* STICKY CTA MOBILE */
+.sticky-cta{display:none;position:fixed;bottom:0;left:0;right:0;z-index:998;background:white;border-top:1px solid var(--border);padding:.8rem 5%;box-shadow:0 -4px 20px rgba(0,0,0,.08);}
+.sticky-cta a{display:block;background:var(--navy);color:var(--gold);text-align:center;padding:.75rem;border-radius:10px;font-size:.92rem;font-weight:600;font-family:var(--fb);text-decoration:none;}
+
+/* FOOTER */
+footer{background:var(--navy);padding:3rem 5%;display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:1.5rem;border-top:1px solid rgba(201,168,76,.1);}
+.ft-logo{font-family:var(--fh);font-size:1.2rem;color:white;text-decoration:none;}
+.ft-logo em{font-style:italic;color:var(--gold);}
+footer p{font-size:.75rem;color:rgba(255,255,255,.22);}
+.ftl{display:flex;gap:1.5rem;}
+.ftl a{font-size:.75rem;color:rgba(255,255,255,.28);text-decoration:none;transition:color .2s;}
+.ftl a:hover{color:rgba(255,255,255,.7);}
+
+@media(max-width:840px){
+  .hero-inner{grid-template-columns:1fr;}
+  .hero-card{max-width:480px;}
+  .nav-r .hl{display:none;}
+  .sticky-cta{display:block;}
+  body{padding-bottom:70px;}
+  .vergelijk{overflow-x:auto;}
+}
+@media(max-width:480px){
+  .f2{grid-template-columns:1fr;}
+  .niche-grid{grid-template-columns:repeat(2,1fr);}
+  .stats-bar{gap:0;}
+  .stat-item{border-right:none;border-bottom:1px solid rgba(13,27,42,.1);}
+  .stat-item:last-child{border-bottom:none;}
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-inner">
+    <a class="logo" href="index.html">Offerzo<em>Klus</em></a>
+    <div class="nav-r">
+      <a class="hl" href="#hoe-het-werkt">Hoe het werkt</a>
+      <a class="hl" href="#prijzen">Prijzen</a>
+      <a class="hl" href="#aanmelden">Aanmelden</a>
+      <a href="index.html" class="nav-klant">Voor klanten</a>
+      <a href="#aanmelden" class="nav-cta">Gratis aanmelden</a>
+    </div>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-glow"></div>
+  <div class="hero-wm">vakman</div>
+  <div class="hero-inner">
+    <div>
+      <div class="hero-badge"><span class="bdot"></span>Nieuwe klanten, eerlijke prijs</div>
+      <h1>Nieuwe klanten<br>in jouw regio.<br><em>Jij betaalt alleen<br>als je ze ontvangt.</em></h1>
+      <p class="hero-sub">We sturen jou serieuze klanten uit jouw regio die al weten wat ze willen. Jij bepaalt hoeveel leads je ontvangt. Eerste maand gratis — zonder verplichtingen.</p>
+      <div class="hero-btns">
+        <a href="#aanmelden" class="btn-gold">Gratis aanmelden — geen verplichtingen →</a>
+        <a href="#prijzen" class="btn-ghost">Bekijk wat het kost</a>
+      </div>
+      <div class="hero-promise">
+        <div class="promise-item">Eerste maand volledig gratis</div>
+        <div class="promise-item">Geen vast contract, maand voor maand</div>
+        <div class="promise-item">Max 3 bedrijven per aanvraag — geen massa-concurrentie</div>
+        <div class="promise-item">Betaal alleen per ontvangen lead, nooit meer</div>
+      </div>
+    </div>
+    <div>
+      <div class="hero-card">
+        <div class="hc-top">
+          <div class="hc-label">Leadprijzen OfferzoKlus</div>
+          <div class="hc-title">Wat kost een lead bij ons?</div>
+        </div>
+        <div class="hc-body">
+          <div class="price-row">
+            <div><div class="pr-niche">Schilder</div><div class="pr-sub">Binnen- en buitenschilderwerk</div></div>
+            <div class="pr-price"><div class="pr-amount">€15</div><div class="pr-per">per lead</div><div class="pr-comp">Werkspot: €60-90</div></div>
+          </div>
+          <div class="price-row">
+            <div><div class="pr-niche">Dakdekker</div><div class="pr-sub">Dakpannen, dakgoot, plat dak</div></div>
+            <div class="pr-price"><div class="pr-amount">€30</div><div class="pr-per">per lead</div><div class="pr-comp">Werkspot: €80-120</div></div>
+          </div>
+          <div class="price-row">
+            <div><div class="pr-niche">Zonnepanelen</div><div class="pr-sub">Installatie & advies</div></div>
+            <div class="pr-price"><div class="pr-amount">€40</div><div class="pr-per">per lead</div><div class="pr-comp">Werkspot: €100-150</div></div>
+          </div>
+          <div class="price-row">
+            <div><div class="pr-niche">Badkamer</div><div class="pr-sub">Renovatie & verbouwing</div></div>
+            <div class="pr-price"><div class="pr-amount">€45</div><div class="pr-per">per lead</div><div class="pr-comp">Werkspot: €100-150</div></div>
+          </div>
+          <div class="price-row">
+            <div><div class="pr-niche">Loodgieter / Elektricien</div><div class="pr-sub">Reparatie & installatie</div></div>
+            <div class="pr-price"><div class="pr-amount">€12</div><div class="pr-per">per lead</div><div class="pr-comp">Werkspot: €50-80</div></div>
+          </div>
+        </div>
+        <div class="hc-footer">
+          <div class="hc-footer-icon">🎁</div>
+          <div class="hc-footer-text">Eerste maand gratis — alle leads, niks betalen</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- STATS BAR -->
+<div class="stats-bar">
+  <div class="stat-item"><div class="stat-num">3×</div><div class="stat-label">max bedrijven per aanvraag</div></div>
+  <div class="stat-item"><div class="stat-num">24u</div><div class="stat-label">gemiddelde reactietijd klant</div></div>
+  <div class="stat-item"><div class="stat-num">-65%</div><div class="stat-label">goedkoper dan Werkspot</div></div>
+  <div class="stat-item"><div class="stat-num">100%</div><div class="stat-label">serieuze aanvragen, AI-gefilterd</div></div>
+</div>
+
+<!-- HOW IT WORKS -->
+<section class="section section-white" id="hoe-het-werkt">
+  <div class="container">
+    <div class="ey-row"><span class="ey-line"></span><span class="ey-text">Hoe het werkt</span></div>
+    <h2 class="sec-h">Van aanmelding tot<br><em>nieuwe opdracht</em></h2>
+    <p class="sec-sub">Vier stappen — en daarna hoef je alleen maar te bellen.</p>
+    <div class="steps">
+      <div class="step">
+        <div class="step-n">1</div>
+        <h3>Aanmelden in 3 minuten</h3>
+        <p>Vul je naam, bedrijf, KvK-nummer en niche in. We checken je inschrijving en activeren je profiel. Geen creditcard nodig.</p>
+      </div>
+      <div class="step">
+        <div class="step-n">2</div>
+        <h3>Stel je voorkeuren in</h3>
+        <p>Geef aan hoeveel leads je wilt per maand, welke regio's en klussen bij je passen. Jij hebt de controle — geen verrassingen op de factuur.</p>
+      </div>
+      <div class="step">
+        <div class="step-n">3</div>
+        <h3>Ontvang leads direct</h3>
+        <p>Zodra een klant een aanvraag doet die bij jou past, krijg jij een melding met naam, telefoonnummer, klus en budget. Jij belt als eerste.</p>
+      </div>
+      <div class="step">
+        <div class="step-n">4</div>
+        <h3>Betaal per lead</h3>
+        <p>Aan het einde van de maand factuurje van ons. Alleen voor ontvangen leads. Geen lead ontvangen? Niks betalen. Zo simpel is het.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- VOORDELEN -->
+<section class="section section-cream">
+  <div class="container">
+    <div class="ey-row"><span class="ey-line"></span><span class="ey-text">Waarom OfferzoKlus</span></div>
+    <h2 class="sec-h">Beter dan Werkspot.<br><em>Eerlijker ook.</em></h2>
+    <div class="voordelen-grid">
+      <div class="vcard">
+        <div class="vcard-icon">🎯</div>
+        <h4>Max 3 bedrijven per aanvraag</h4>
+        <p>Jij bent niet één van de tien die dezelfde klant belt. Bij ons ben je één van de drie. Hogere kans, minder concurrentie op prijs.</p>
+      </div>
+      <div class="vcard">
+        <div class="vcard-icon">🤖</div>
+        <h4>Alleen serieuze aanvragen</h4>
+        <p>Onze AI-assistent filtert aanvragen. Je ontvangt geen "gewoon even een prijsje informeren"-leads. Klanten die invullen willen écht iets laten doen.</p>
+      </div>
+      <div class="vcard">
+        <div class="vcard-icon">📍</div>
+        <h4>Jouw regio, jouw niche</h4>
+        <p>Geen leads van 80 km verderop. Jij stelt in welke postcodegebieden en welke klussen bij je passen. Wij houden ons eraan.</p>
+      </div>
+      <div class="vcard">
+        <div class="vcard-icon">📋</div>
+        <h4>Volledige klantinfo direct</h4>
+        <p>Je ontvangt naam, telefoonnummer, omschrijving van de klus en het globale budget. Geen vagen rondom — direct bellen en scoren.</p>
+      </div>
+      <div class="vcard">
+        <div class="vcard-icon">⏸️</div>
+        <h4>Geen vast contract</h4>
+        <p>Maand voor maand. Vol zit je vol — stuur ons een appje en we pauzeren je account. Geen opzegtermijn, geen boetes, geen gedoe.</p>
+      </div>
+      <div class="vcard">
+        <div class="vcard-icon">⭐</div>
+        <h4>Meer leads bij betere score</h4>
+        <p>Vakmannen die snel reageren en goede reviews krijgen, komen hoger in onze matching. Kwaliteit wordt beloond met meer klanten.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- VERGELIJKING -->
+<section class="section section-white">
+  <div class="container">
+    <div class="ey-row"><span class="ey-line"></span><span class="ey-text">Vergelijking</span></div>
+    <h2 class="sec-h">OfferzoKlus vs<br><em>de rest</em></h2>
+    <p class="sec-sub">Waarom steeds meer vakmannen overstappen.</p>
+    <div class="vergelijk">
+      <div class="verg-head">
+        <div class="verg-hl">Onderdeel</div>
+        <div class="verg-hl ok">OfferzoKlus</div>
+        <div class="verg-hl">Werkspot / anderen</div>
+      </div>
+      <div class="verg-row"><div class="verg-label">Prijs per lead</div><div class="verg-val v-good">€12 – €50</div><div class="verg-val v-bad">€60 – €150</div></div>
+      <div class="verg-row"><div class="verg-label">Bedrijven per aanvraag</div><div class="verg-val v-good">Max 3</div><div class="verg-val v-bad">5 – 10</div></div>
+      <div class="verg-row"><div class="verg-label">Kwaliteitsfilter aanvragen</div><div class="verg-val v-good">Ja — AI-gefilterd</div><div class="verg-val v-mid">Beperkt</div></div>
+      <div class="verg-row"><div class="verg-label">Eerste maand gratis</div><div class="verg-val v-good">Ja</div><div class="verg-val v-bad">Nee</div></div>
+      <div class="verg-row"><div class="verg-label">Vast contract verplicht</div><div class="verg-val v-good">Nee</div><div class="verg-val v-bad">Soms ja</div></div>
+      <div class="verg-row"><div class="verg-label">Lead-terugbetaling bij niet-reactie</div><div class="verg-val v-good">Ja — altijd</div><div class="verg-val v-bad">Zelden</div></div>
+      <div class="verg-row"><div class="verg-label">Persoonlijk contact oprichter</div><div class="verg-val v-good">Ja — altijd bereikbaar</div><div class="verg-val v-bad">Nee</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- PRIJZEN -->
+<section class="section section-cream" id="prijzen">
+  <div class="container">
+    <div class="ey-row"><span class="ey-line"></span><span class="ey-text">Transparante prijzen</span></div>
+    <h2 class="sec-h">Betaal alleen<br><em>wat je ontvangt</em></h2>
+    <p class="sec-sub">Geen abonnement, geen verborgen kosten. Eerste maand gratis voor alle nieuwe vakmannen.</p>
+    <div class="prijs-grid">
+      <div class="pcard">
+        <div class="pcard-niche">Schilder</div>
+        <div class="pcard-omschr">Binnen- en buitenschilderwerk</div>
+        <div class="pcard-prijs">€15</div>
+        <div class="pcard-per">per ontvangen lead</div>
+        <div class="pcard-vs">Werkspot: <span>€60-90</span></div>
+        <div class="pcard-badge">75% goedkoper</div>
+      </div>
+      <div class="pcard">
+        <div class="pcard-niche">Loodgieter</div>
+        <div class="pcard-omschr">Reparatie & installatie</div>
+        <div class="pcard-prijs">€12</div>
+        <div class="pcard-per">per ontvangen lead</div>
+        <div class="pcard-vs">Werkspot: <span>€50-80</span></div>
+        <div class="pcard-badge">78% goedkoper</div>
+      </div>
+      <div class="pcard">
+        <div class="pcard-niche">Elektricien</div>
+        <div class="pcard-omschr">Installatie & storingen</div>
+        <div class="pcard-prijs">€12</div>
+        <div class="pcard-per">per ontvangen lead</div>
+        <div class="pcard-vs">Werkspot: <span>€50-80</span></div>
+        <div class="pcard-badge">78% goedkoper</div>
+      </div>
+      <div class="pcard">
+        <div class="pcard-niche">Dakdekker</div>
+        <div class="pcard-omschr">Dakpannen, goot, plat dak</div>
+        <div class="pcard-prijs">€30</div>
+        <div class="pcard-per">per ontvangen lead</div>
+        <div class="pcard-vs">Werkspot: <span>€80-120</span></div>
+        <div class="pcard-badge">70% goedkoper</div>
+      </div>
+      <div class="pcard featured">
+        <div class="pcard-niche">Zonnepanelen</div>
+        <div class="pcard-omschr">Installatie & advies</div>
+        <div class="pcard-prijs">€40</div>
+        <div class="pcard-per">per ontvangen lead</div>
+        <div class="pcard-vs">Werkspot: <span>€100-150</span></div>
+        <div class="pcard-badge">68% goedkoper</div>
+      </div>
+      <div class="pcard">
+        <div class="pcard-niche">Badkamer / Aannemer</div>
+        <div class="pcard-omschr">Renovatie & verbouwing</div>
+        <div class="pcard-prijs">€45</div>
+        <div class="pcard-per">per ontvangen lead</div>
+        <div class="pcard-vs">Werkspot: <span>€100-150</span></div>
+        <div class="pcard-badge">65% goedkoper</div>
+      </div>
+    </div>
+    <div style="margin-top:1.5rem;padding:1.25rem 1.5rem;background:rgba(201,168,76,.08);border:1px solid rgba(201,168,76,.2);border-radius:12px;max-width:600px;">
+      <p style="font-size:.88rem;color:var(--ink);line-height:1.65;"><strong style="color:var(--gold-dark);">Lead-garantie:</strong> Reageert een klant niet binnen 48 uur? Dan krijg je die lead terug als tegoed op je volgende factuur. Geen discussie, altijd.</p>
+    </div>
+  </div>
+</section>
+
+<!-- AANMELDFORMULIER -->
+<section class="section section-gold" id="aanmelden">
+  <div class="container">
+    <div style="text-align:center;margin-bottom:2.5rem;">
+      <div class="ey-row" style="justify-content:center;"><span class="ey-line"></span><span class="ey-text">Gratis aanmelden</span><span class="ey-line"></span></div>
+      <h2 class="sec-h" style="text-align:center;">Begin vandaag nog.<br><em>Eerste maand gratis.</em></h2>
+      <p class="sec-sub" style="text-align:center;margin:0 auto;">Aanmelden duurt 3 minuten. Geen creditcard, geen verplichtingen.</p>
+    </div>
+    <div class="form-wrap">
+      <div class="form-card">
+        <div class="form-top">
+          <div class="form-top-title">Vakman aanmelding — OfferzoKlus</div>
+          <div class="form-top-sub">Wij nemen binnen 24 uur contact op na je aanmelding</div>
+        </div>
+        <div class="form-body" id="formBody">
+          <div class="f2">
+            <div class="fgroup">
+              <label class="fl" for="v-naam">Jouw naam</label>
+              <input class="fi" id="v-naam" type="text" placeholder="Jan Jansen"/>
+            </div>
+            <div class="fgroup">
+              <label class="fl" for="v-bedrijf">Bedrijfsnaam</label>
+              <input class="fi" id="v-bedrijf" type="text" placeholder="Jansen Schilders BV"/>
+            </div>
+          </div>
+          <div class="f2">
+            <div class="fgroup">
+              <label class="fl" for="v-kvk">KvK-nummer</label>
+              <input class="fi" id="v-kvk" type="text" placeholder="12345678"/>
+            </div>
+            <div class="fgroup">
+              <label class="fl" for="v-regio">Werkgebied (stad/regio)</label>
+              <input class="fi" id="v-regio" type="text" placeholder="Bijv. Lisse, Bollenstreek"/>
+            </div>
+          </div>
+          <div class="fgroup">
+            <label class="fl">Vakgebied (meerdere mogelijk)</label>
+            <div class="niche-grid">
+              <button class="niche-btn" onclick="toggleNiche(this)">🎨 Schilder</button>
+              <button class="niche-btn" onclick="toggleNiche(this)">🏠 Dakdekker</button>
+              <button class="niche-btn" onclick="toggleNiche(this)">☀️ Zonnepanelen</button>
+              <button class="niche-btn" onclick="toggleNiche(this)">🚿 Badkamer</button>
+              <button class="niche-btn" onclick="toggleNiche(this)">🔧 Loodgieter</button>
+              <button class="niche-btn" onclick="toggleNiche(this)">⚡ Elektricien</button>
+              <button class="niche-btn" onclick="toggleNiche(this)">🌿 Tuinaanleg</button>
+              <button class="niche-btn" onclick="toggleNiche(this)">🪟 Kozijnen</button>
+              <button class="niche-btn" onclick="toggleNiche(this)">🏗️ Aannemer</button>
+            </div>
+          </div>
+          <div class="fgroup">
+            <label class="fl" for="v-max">Max leads per maand</label>
+            <select class="fs" id="v-max">
+              <option value="">Kies...</option>
+              <option value="5">1-5 leads</option>
+              <option value="10">5-10 leads</option>
+              <option value="20">10-20 leads</option>
+              <option value="onbeperkt">Zo veel mogelijk</option>
+            </select>
+          </div>
+          <div class="f2">
+            <div class="fgroup">
+              <label class="fl" for="v-email">E-mailadres</label>
+              <input class="fi" id="v-email" type="email" placeholder="jan@schilders.nl"/>
+            </div>
+            <div class="fgroup">
+              <label class="fl" for="v-tel">Telefoonnummer</label>
+              <input class="fi" id="v-tel" type="tel" placeholder="06 —"/>
+            </div>
+          </div>
+          <button class="form-submit" onclick="submitVakman()">Aanmelden — eerste maand gratis →</button>
+          <p class="form-note">Wij nemen binnen 24 uur contact op. Je ontvangt geen spam. Geen verborgen kosten.</p>
+        </div>
+        <div class="form-success" id="formSuccess">
+          <div class="fs-icon">🎉</div>
+          <h3>Aanmelding ontvangen!</h3>
+          <p>Welkom bij OfferzoKlus. We nemen <span class="fs-hl">binnen 24 uur</span> contact met je op om je profiel te activeren.<br><br>Je eerste maand is volledig gratis. We kijken ernaar uit om je de eerste leads te sturen.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TESTIMONIALS -->
+<section class="section section-white">
+  <div class="container">
+    <div class="ey-row"><span class="ey-line"></span><span class="ey-text">Wat vakmannen zeggen</span></div>
+    <h2 class="sec-h">Van collega's,<br><em>voor collega's</em></h2>
+    <div class="testi-grid">
+      <div class="tcard">
+        <p class="tcard-quote">"Ik was sceptisch na Werkspot — te duur, slechte leads. Bij OfferzoKlus betaal ik een fractie en de klanten die ik krijg weten wat ze willen. Heb al drie opdrachten gesloten in de eerste maand."</p>
+        <div class="tcard-footer">
+          <div class="tcard-av">RB</div>
+          <div><div class="tcard-name">Roel Bakker</div><div class="tcard-niche">Dakdekker · Haarlem</div></div>
+        </div>
+      </div>
+      <div class="tcard">
+        <p class="tcard-quote">"Ik heb mezelf ingesteld op max 8 leads per maand en ik kies precies welke klussen ik wil. Ze zijn altijd uit mijn regio en serieus. Dit is hoe het hoort te werken."</p>
+        <div class="tcard-footer">
+          <div class="tcard-av">MP</div>
+          <div><div class="tcard-name">Marco Pieters</div><div class="tcard-niche">Schilder · Leiden</div></div>
+        </div>
+      </div>
+      <div class="tcard">
+        <p class="tcard-quote">"De eerste maand gratis was de doorslag. Ik heb niks te verliezen gedacht — en nu twee maanden later betaal ik met plezier per lead omdat het gewoon werkt."</p>
+        <div class="tcard-footer">
+          <div class="tcard-av">SV</div>
+          <div><div class="tcard-name">Sandra van Dijk</div><div class="tcard-niche">Elektricien · Amsterdam</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section class="section section-cream">
+  <div class="container">
+    <div class="ey-row"><span class="ey-line"></span><span class="ey-text">Veelgestelde vragen</span></div>
+    <h2 class="sec-h">Alle antwoorden<br><em>op een rij</em></h2>
+    <div class="faq-list">
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">Wat als een klant niet reageert? <span class="faq-icon">+</span></button>
+        <div class="faq-a"><p>Je betaalt alleen voor de lead, niet voor de opdracht. Blijkt een klant onbereikbaar binnen 48 uur? Dan krijg je die lead terug als tegoed op je volgende factuur. Geen discussie, altijd.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">Hoeveel leads kan ik verwachten? <span class="faq-icon">+</span></button>
+        <div class="faq-a"><p>Dat hangt af van je niche en regio. We zijn eerlijk als het in jouw gebied nog rustig is — dat zeggen we gewoon. We doen geen beloftes die we niet kunnen waarmaken. Zodra het platform groeit in jouw regio, stijgt het aantal leads mee.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">Kan ik op elk moment stoppen of pauzeren? <span class="faq-icon">+</span></button>
+        <div class="faq-a"><p>Ja. Geen opzegtermijn, geen boetes, geen gedoe. Stuur ons een appje of een mailtje en we pauzeren of stoppen je account per direct. We willen alleen vakmannen die er écht wat aan hebben.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">Hoe word ik geverifieerd? <span class="faq-icon">+</span></button>
+        <div class="faq-a"><p>We checken je KvK-inschrijving en kijken naar bestaande Google reviews als die er zijn. Na je eerste 3 opdrachten via ons krijg je automatisch de OfferzoKlus-verificatiebadge op je profiel — zichtbaar voor alle klanten.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">Hoe werkt de facturatie? <span class="faq-icon">+</span></button>
+        <div class="faq-a"><p>Aan het einde van elke maand sturen wij je een overzicht van alle ontvangen leads met datum en klantgegevens. Jij betaalt alleen voor wat je hebt ontvangen, binnen 14 dagen. Betalen kan per bank of via iDEAL.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">Wat als ik tijdelijk geen leads wil? <span class="faq-icon">+</span></button>
+        <div class="faq-a"><p>Zeg het gewoon. Stuur ons een berichtje en we pauzeren je profiel. Zodra je weer ruimte hebt, activeren we hem opnieuw. Er is geen minimum actieve periode.</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA BANNER -->
+<section style="background:var(--navy);padding:80px 5%;text-align:center;position:relative;overflow:hidden;">
+  <div style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);font-family:var(--fh);font-size:18rem;color:rgba(201,168,76,.03);white-space:nowrap;pointer-events:none;letter-spacing:-8px;">klant</div>
+  <div style="position:relative;z-index:2;">
+    <div class="ey-row" style="justify-content:center;"><span class="ey-line"></span><span class="ey-text" style="color:rgba(201,168,76,.6);">Klaar om te beginnen?</span><span class="ey-line"></span></div>
+    <h2 style="font-family:var(--fh);font-size:clamp(2rem,4vw,3rem);color:white;font-weight:400;margin-bottom:.75rem;letter-spacing:-.3px;">Eerste maand gratis.<br><em style="font-style:italic;color:var(--gold);">Geen enkel risico.</em></h2>
+    <p style="font-size:.98rem;color:rgba(255,255,255,.5);max-width:400px;margin:0 auto 2.25rem;font-weight:300;line-height:1.7;">Sluit je aan en ontvang jouw eerste leads zonder te betalen. Zo zie je zelf of het bij jou past.</p>
+    <a href="#aanmelden" class="btn-gold" style="font-size:.95rem;">Gratis aanmelden — geen verplichtingen →</a>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <a class="ft-logo" href="index.html">Offerzo<em>Klus</em></a>
+  <p>© 2025 OfferzoKlus.nl — Gratis offertes voor elke klus</p>
+  <div class="ftl"><a href="#">Privacy</a><a href="#">Contact</a><a href="index.html">Voor klanten</a></div>
+</footer>
+
+<!-- STICKY MOBILE CTA -->
+<div class="sticky-cta">
+  <a href="#aanmelden">Gratis aanmelden als vakman →</a>
+</div>
+
+<script>
+const FORM_WEBHOOK = '/api/webhook';
+let selectedNiches = [];
+
+function toggleNiche(btn) {
+  btn.classList.toggle('sel');
+  const niche = btn.textContent.trim();
+  if (btn.classList.contains('sel')) {
+    selectedNiches.push(niche);
+  } else {
+    selectedNiches = selectedNiches.filter(n => n !== niche);
+  }
+}
+
+function toggleFaq(btn) {
+  const item = btn.closest('.faq-item');
+  const answer = item.querySelector('.faq-a');
+  const isOpen = item.classList.contains('active');
+  document.querySelectorAll('.faq-item').forEach(i => { i.classList.remove('active'); i.querySelector('.faq-a').classList.remove('open'); });
+  if (!isOpen) { item.classList.add('active'); answer.classList.add('open'); }
+}
+
+async function submitVakman() {
+  const naam    = document.getElementById('v-naam').value.trim();
+  const bedrijf = document.getElementById('v-bedrijf').value.trim();
+  const kvk     = document.getElementById('v-kvk').value.trim();
+  const regio   = document.getElementById('v-regio').value.trim();
+  const email   = document.getElementById('v-email').value.trim();
+  const tel     = document.getElementById('v-tel').value.trim();
+  const max     = document.getElementById('v-max').value;
+
+  if (!naam || !bedrijf || !email || !tel || selectedNiches.length === 0) {
+    alert('Vul alle verplichte velden in en kies minimaal één vakgebied.');
+    return;
+  }
+
+  const data = {
+    type: 'VAKMAN_AANMELDING',
+    naam, bedrijf, kvk, regio, email, tel,
+    niches: selectedNiches.join(', '),
+    max_leads: max || 'Niet opgegeven',
+    datum: new Date().toLocaleDateString('nl-NL', {day:'2-digit',month:'2-digit',year:'numeric',hour:'2-digit',minute:'2-digit'}),
+    mail_onderwerp: `🔨 Nieuwe vakman: ${bedrijf} (${selectedNiches[0]}) — ${regio}`,
+    mail_body: `NIEUWE VAKMAN AANMELDING\n\n` +
+      `━━━━━━━━━━━━━━━━━\n` +
+      `NAAM:      ${naam}\nBEDRIJF:   ${bedrijf}\nKVK:       ${kvk||'–'}\nREGIO:     ${regio}\n` +
+      `NICHES:    ${selectedNiches.join(', ')}\nMAX LEADS: ${max||'–'}\n` +
+      `━━━━━━━━━━━━━━━━━\n` +
+      `EMAIL:     ${email}\nTEL:       ${tel}\n` +
+      `━━━━━━━━━━━━━━━━━\n` +
+      `Ontvangen: ${new Date().toLocaleDateString('nl-NL',{day:'2-digit',month:'2-digit',year:'numeric',hour:'2-digit',minute:'2-digit'})}\n\n` +
+      `Actie: bel de vakman op, bevestig aanmelding en activeer het profiel.`
+  };
+
+  if (FORM_WEBHOOK) {
+    try {
+      await fetch(FORM_WEBHOOK, {
+        method:'POST', headers:{'Content-Type':'application/json'}, body:JSON.stringify(data)
+      });
+    } catch(e) { console.error('Webhook fout:', e); }
+  }
+
+  document.getElementById('formBody').style.display = 'none';
+  document.getElementById('formSuccess').style.display = 'block';
+}
+</script>
+</body>
+</html>
