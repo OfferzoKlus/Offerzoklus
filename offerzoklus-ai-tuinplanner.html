@@ -1,0 +1,730 @@
+<!doctype html>
+<html lang="nl">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>AI Tuinplanner — Offerzoklus</title>
+  <meta name="description" content="Upload een foto van je tuin en ontvang een eerste AI-tuinidee. Voor Offerzoklus en hoveniers die de tool op hun eigen website willen gebruiken." />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --navy:#0d1b2a;
+      --navy-mid:#0d2b4e;
+      --navy-light:#1a3a5c;
+      --gold:#c9a84c;
+      --gold-light:#e8d08a;
+      --gold-dark:#a88530;
+      --gold-pale:#faf6ec;
+      --cream:#faf8f4;
+      --white:#ffffff;
+      --ink:#111827;
+      --mid:#374151;
+      --muted:#6b7280;
+      --border:#e5e7eb;
+      --border-mid:#d1d5db;
+      --success:#16a34a;
+      --success-bg:#f0fdf4;
+      --brand: var(--gold);
+      --brand-dark: var(--gold-dark);
+      --brand-soft: var(--gold-pale);
+      --line: var(--border);
+      --bg: var(--cream);
+      --card: #ffffff;
+      --danger: #b91c1c;
+      --warning: #92400e;
+      --shadow: 0 24px 80px rgba(0,0,0,.18);
+      --radius: 18px;
+      --fh:'DM Serif Display', Georgia, serif;
+      --fb:'DM Sans', system-ui, sans-serif;
+    }
+
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: var(--fb);
+      color: var(--ink);
+      background: var(--cream);
+      line-height: 1.65;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    a { color: inherit; }
+    .page { min-height: 100vh; }
+    .container { width: min(1120px, calc(100% - 32px)); margin: 0 auto; }
+
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      background: rgba(13,27,42,.97);
+      backdrop-filter: blur(20px);
+      border-bottom: 1px solid rgba(201,168,76,.15);
+      padding: 0;
+    }
+
+    .nav {
+      height: 64px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 20px;
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-family: var(--fh);
+      font-weight: 400;
+      letter-spacing: -.3px;
+      font-size: 1.35rem;
+      color: white;
+    }
+
+    .logo-mark {
+      width: 38px;
+      height: 38px;
+      border-radius: 10px;
+      background: rgba(201,168,76,.12);
+      border: 1px solid rgba(201,168,76,.28);
+      display: grid;
+      place-items: center;
+      color: var(--gold);
+      box-shadow: none;
+    }
+
+    .partner-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      border: 1px solid rgba(201,168,76,.25);
+      background: rgba(201,168,76,.10);
+      color: var(--gold);
+      padding: 8px 12px;
+      border-radius: 8px;
+      font-size: .82rem;
+      font-weight: 600;
+    }
+
+    .hero {
+      background: var(--navy);
+      padding: 82px 0 78px;
+      position: relative;
+      overflow: hidden;
+    }
+    .hero::before {
+      content: '';
+      position: absolute;
+      top: -25%; right: -12%;
+      width: 65%; height: 90%;
+      background: radial-gradient(ellipse, rgba(201,168,76,.08) 0%, transparent 65%);
+      pointer-events: none;
+    }
+    .hero::after {
+      content: 'tuin';
+      position: absolute;
+      bottom: -15%; right: -2%;
+      font-family: var(--fh);
+      font-size: 22vw;
+      color: rgba(201,168,76,.025);
+      line-height: 1;
+      pointer-events: none;
+      user-select: none;
+      letter-spacing: -8px;
+    }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) 430px;
+      gap: 4rem;
+      align-items: center;
+      position: relative;
+      z-index: 2;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      color: var(--gold-light);
+      background: rgba(201,168,76,.10);
+      border: 1px solid rgba(201,168,76,.22);
+      padding: 6px 13px;
+      border-radius: 100px;
+      font-weight: 600;
+      font-size: .78rem;
+      letter-spacing: .3px;
+      margin-bottom: 1.5rem;
+    }
+
+    h1 {
+      font-family: var(--fh);
+      font-size: clamp(2.55rem, 5.4vw, 4.35rem);
+      font-weight: 400;
+      line-height: 1.04;
+      letter-spacing: -.5px;
+      color: white;
+      margin: 0 0 1.1rem;
+    }
+
+    .lead {
+      font-size: 1.05rem;
+      color: rgba(255,255,255,.58);
+      max-width: 500px;
+      margin: 0 0 2rem;
+      font-weight: 300;
+      line-height: 1.7;
+    }
+
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      align-items: center;
+      margin-bottom: 28px;
+    }
+
+    .btn {
+      border: 0;
+      border-radius: 10px;
+      background: var(--gold);
+      color: var(--navy);
+      font-weight: 700;
+      padding: .88rem 1.55rem;
+      cursor: pointer;
+      text-decoration: none;
+      box-shadow: none;
+      transition: .18s ease;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      font-size: .92rem;
+      font-family: var(--fb);
+    }
+
+    .btn:hover { transform: translateY(-2px); background: var(--gold-light); }
+    .btn.secondary { background: transparent; color: rgba(255,255,255,.68); border: 1px solid rgba(255,255,255,.18); box-shadow: none; }
+    .btn.secondary:hover { color: white; border-color: rgba(255,255,255,.42); background: transparent; }
+    .btn.full { width: 100%; }
+    .btn:disabled { opacity: .65; cursor: wait; transform: none; }
+
+    .trust-row {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 12px;
+      margin-top: 28px;
+    }
+
+    .trust-card {
+      background: rgba(255,255,255,.045);
+      border: 1px solid rgba(201,168,76,.12);
+      border-radius: 14px;
+      padding: 16px;
+    }
+
+    .trust-card strong { display: block; font-size: .9rem; color: rgba(255,255,255,.9); }
+    .trust-card span { color: rgba(255,255,255,.48); font-size: .82rem; }
+
+    .preview-card {
+      background: #fff;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      overflow: hidden;
+      position: sticky;
+      top: 16px;
+    }
+
+    .garden-illustration {
+      height: 260px;
+      background: linear-gradient(180deg, #b7e4c7 0%, #ecfccb 100%);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .garden-illustration svg { width: 100%; height: 100%; display: block; }
+    .preview-body { padding: 20px; }
+    .preview-body h3 { margin: 0 0 8px; font-size: 22px; letter-spacing: -.03em; }
+    .preview-body p { margin: 0; color: var(--muted); }
+
+    .section { padding: 34px 0; }
+    .section-title { text-align: center; max-width: 760px; margin: 0 auto 24px; }
+    .section-title h2 { font-family: var(--fh); font-weight: 400; font-size: clamp(2.1rem, 4vw, 3.35rem); line-height: 1.05; letter-spacing: -.3px; margin: 0 0 12px; }
+    .section-title p { color: var(--muted); margin: 0; font-size: 18px; }
+
+    .planner-wrap {
+      display: grid;
+      grid-template-columns: 1fr 360px;
+      gap: 22px;
+      align-items: start;
+    }
+
+    .card {
+      background: var(--card);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      box-shadow: 0 8px 28px rgba(13,27,42,.06);
+    }
+
+    form.card { padding: 22px; }
+    .side-card { padding: 22px; position: sticky; top: 16px; }
+
+    .form-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px; }
+    .field { display: flex; flex-direction: column; gap: 7px; }
+    .field.full { grid-column: 1 / -1; }
+    label { font-weight: 780; font-size: 14px; }
+    .hint { color: var(--muted); font-size: 13px; }
+
+    input, select, textarea {
+      width: 100%;
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      padding: 13px 14px;
+      font: inherit;
+      color: var(--ink);
+      background: #fff;
+      outline: none;
+      transition: .15s ease;
+    }
+    textarea { min-height: 112px; resize: vertical; }
+    input:focus, select:focus, textarea:focus { border-color: var(--gold); box-shadow: 0 0 0 4px rgba(201,168,76,.14); }
+
+    .upload-zone {
+      border: 1.5px dashed rgba(201,168,76,.45);
+      background: var(--gold-pale);
+      border-radius: 18px;
+      padding: 18px;
+      display: grid;
+      gap: 10px;
+    }
+
+    .checks { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; }
+    .check {
+      display: flex;
+      align-items: center;
+      gap: 9px;
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      padding: 10px 11px;
+      cursor: pointer;
+      font-weight: 650;
+      color: var(--ink);
+      background: #fff;
+    }
+    .check input { width: auto; }
+
+    .consent {
+      display: grid;
+      gap: 10px;
+      margin: 18px 0;
+      padding: 16px;
+      border-radius: 16px;
+      background: var(--gold-pale);
+      border: 1px solid var(--line);
+    }
+    .consent label { display: flex; gap: 10px; align-items: flex-start; font-weight: 600; color: var(--muted); }
+    .consent input { width: auto; margin-top: 4px; }
+
+    .steps { display: grid; gap: 12px; margin: 0; padding: 0; list-style: none; }
+    .steps li { display: grid; grid-template-columns: 34px 1fr; gap: 12px; align-items: start; }
+    .num { width: 34px; height: 34px; border-radius: 12px; background: var(--brand-soft); color: var(--brand-dark); font-weight: 900; display: grid; place-items: center; }
+    .steps strong { display: block; }
+    .steps span { color: var(--muted); font-size: 14px; }
+
+    .notice {
+      margin-top: 16px;
+      border-radius: 16px;
+      padding: 14px;
+      background: #fffbeb;
+      color: var(--warning);
+      border: 1px solid #fde68a;
+      font-size: 14px;
+    }
+
+    .success {
+      display: none;
+      margin-top: 16px;
+      border-radius: 16px;
+      padding: 16px;
+      background: #ecfdf5;
+      color: #065f46;
+      border: 1px solid #a7f3d0;
+      font-weight: 650;
+    }
+    .error {
+      display: none;
+      margin-top: 16px;
+      border-radius: 16px;
+      padding: 16px;
+      background: #fef2f2;
+      color: var(--danger);
+      border: 1px solid #fecaca;
+      font-weight: 650;
+    }
+
+    .embed-box {
+      background: #101812;
+      color: #d7ffe3;
+      padding: 16px;
+      border-radius: 16px;
+      overflow: auto;
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+      font-size: 13px;
+      white-space: pre-wrap;
+    }
+
+    footer { padding: 34px 0 50px; color: var(--muted); text-align: center; font-size: 14px; }
+
+    @media (max-width: 920px) {
+      .hero-grid, .planner-wrap { grid-template-columns: 1fr; }
+      .preview-card, .side-card { position: static; }
+      .trust-row { grid-template-columns: 1fr; }
+    }
+    @media (max-width: 640px) {
+      .form-grid, .checks { grid-template-columns: 1fr; }
+      .nav { align-items: flex-start; flex-direction: column; }
+      form.card { padding: 16px; }
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <header>
+      <div class="container nav">
+        <div class="logo">
+          <div class="logo-mark" aria-hidden="true">O</div>
+          <span id="brandName">Offerzoklus</span>
+        </div>
+        <div class="partner-pill" id="partnerPill">AI Tuinplanner · Powered by Offerzoklus.nl</div>
+      </div>
+    </header>
+
+    <main>
+      <section class="hero">
+        <div class="container hero-grid">
+          <div>
+            <div class="eyebrow">🌱 AI intake voor tuinprojecten</div>
+            <h1 id="heroTitle">Upload je tuin en ontvang een eerste AI-tuinidee</h1>
+            <p class="lead" id="heroLead">Vertel kort wat je wilt veranderen. De AI maakt van je foto en wensen een duidelijke tuin-intake voor de hovenier.</p>
+            <div class="hero-actions">
+              <a class="btn" href="#planner">Maak mijn AI-tuinidee →</a>
+              <a class="btn secondary" href="#voor-hoveniers">Voor hoveniers</a>
+            </div>
+            <div class="trust-row">
+              <div class="trust-card"><strong>Foto + wensen</strong><span>Veel beter dan een standaard contactformulier.</span></div>
+              <div class="trust-card"><strong>Lead naar hovenier</strong><span>De hovenier ontvangt de aanvraag met AI-samenvatting.</span></div>
+              <div class="trust-card"><strong>Geen definitieve offerte</strong><span>Altijd eerst technisch laten beoordelen.</span></div>
+            </div>
+          </div>
+
+          <aside class="preview-card" aria-label="Voorbeeld AI tuinplanner">
+            <div class="garden-illustration">
+              <svg viewBox="0 0 520 300" role="img" aria-label="Tuinillustratie">
+                <defs>
+                  <linearGradient id="sky" x1="0" x2="0" y1="0" y2="1"><stop stop-color="#dff7e7"/><stop offset="1" stop-color="#f7fee7"/></linearGradient>
+                  <linearGradient id="grass" x1="0" x2="1"><stop stop-color="#22c55e"/><stop offset="1" stop-color="#84cc16"/></linearGradient>
+                </defs>
+                <rect width="520" height="300" fill="url(#sky)"/>
+                <path d="M0 210 C120 180 180 240 310 205 C410 180 455 205 520 185 L520 300 L0 300 Z" fill="url(#grass)" opacity=".92"/>
+                <path d="M55 295 C110 235 176 220 255 195 C312 177 390 166 488 155" fill="none" stroke="#d6ad70" stroke-width="34" stroke-linecap="round" opacity=".95"/>
+                <path d="M55 295 C110 235 176 220 255 195 C312 177 390 166 488 155" fill="none" stroke="#f3dfb9" stroke-width="24" stroke-linecap="round"/>
+                <rect x="330" y="105" width="115" height="70" rx="8" fill="#8b5e34" opacity=".95"/>
+                <rect x="342" y="86" width="91" height="35" rx="4" fill="#6b3f21"/>
+                <circle cx="112" cy="145" r="38" fill="#15803d"/><circle cx="72" cy="165" r="28" fill="#16a34a"/><circle cx="150" cy="175" r="24" fill="#22c55e"/>
+                <circle cx="260" cy="125" r="18" fill="#f59e0b"/><circle cx="285" cy="137" r="16" fill="#ef4444"/><circle cx="235" cy="142" r="15" fill="#a855f7"/>
+                <rect x="0" y="0" width="520" height="30" fill="#8b5e34" opacity=".28"/>
+                <g opacity=".58" fill="#8b5e34"><rect x="18" y="0" width="8" height="88"/><rect x="62" y="0" width="8" height="75"/><rect x="106" y="0" width="8" height="82"/><rect x="150" y="0" width="8" height="70"/><rect x="194" y="0" width="8" height="78"/><rect x="238" y="0" width="8" height="68"/><rect x="282" y="0" width="8" height="80"/><rect x="326" y="0" width="8" height="72"/><rect x="370" y="0" width="8" height="84"/><rect x="414" y="0" width="8" height="75"/><rect x="458" y="0" width="8" height="83"/><rect x="502" y="0" width="8" height="74"/></g>
+              </svg>
+            </div>
+            <div class="preview-body">
+              <h3>Van vage aanvraag naar concrete tuinlead</h3>
+              <p>De hovenier ontvangt foto, wensen, budget, planning en een AI-samenvatting met mogelijke werkzaamheden.</p>
+            </div>
+          </aside>
+        </div>
+      </section>
+
+      <section class="section" id="planner">
+        <div class="container">
+          <div class="section-title">
+            <h2 id="formTitle">Start je AI-tuinidee</h2>
+            <p id="formIntro">Vul je gegevens in. In deze MVP gaat de uitgebreide aanvraag direct naar de hovenier/partner.</p>
+          </div>
+
+          <div class="planner-wrap">
+            <form class="card" id="gardenForm">
+              <input type="hidden" name="form_type" value="ai_tuinplanner" />
+              <input type="hidden" name="partner_id" id="partnerIdInput" />
+              <input type="hidden" name="source" id="sourceInput" />
+              <input type="hidden" name="partner_name" id="partnerNameInput" />
+
+              <div class="form-grid">
+                <div class="field">
+                  <label for="name">Naam *</label>
+                  <input id="name" name="naam" autocomplete="name" required placeholder="Bijv. Jan de Vries" />
+                </div>
+                <div class="field">
+                  <label for="phone">Telefoonnummer *</label>
+                  <input id="phone" name="telefoon" autocomplete="tel" required placeholder="06-12345678" />
+                </div>
+                <div class="field">
+                  <label for="email">E-mailadres *</label>
+                  <input id="email" name="email" autocomplete="email" type="email" required placeholder="naam@email.nl" />
+                </div>
+                <div class="field">
+                  <label for="place">Plaats/postcode *</label>
+                  <input id="place" name="plaats_postcode" required placeholder="Bijv. Lisse, 2161 AB" />
+                </div>
+
+                <div class="field full upload-zone">
+                  <label for="photo">Upload een foto van je tuin *</label>
+                  <input id="photo" name="tuin_foto" type="file" accept="image/*" required />
+                  <span class="hint">Tip: maak een overzichtsfoto vanaf de woning of vanuit de hoek van de tuin.</span>
+                </div>
+
+                <div class="field">
+                  <label for="style">Gewenste stijl *</label>
+                  <select id="style" name="stijl" required>
+                    <option value="">Kies een stijl...</option>
+                    <option>Modern en strak</option>
+                    <option>Landelijk</option>
+                    <option>Onderhoudsarm</option>
+                    <option>Groen en natuurlijk</option>
+                    <option>Kindvriendelijk</option>
+                    <option>Luxe / hotelgevoel</option>
+                    <option>Weet ik nog niet</option>
+                  </select>
+                </div>
+                <div class="field">
+                  <label for="budget">Budgetindicatie *</label>
+                  <select id="budget" name="budget" required>
+                    <option value="">Kies budget...</option>
+                    <option>Tot €2.500</option>
+                    <option>€2.500 - €5.000</option>
+                    <option>€5.000 - €10.000</option>
+                    <option>€10.000 - €20.000</option>
+                    <option>Meer dan €20.000</option>
+                    <option>Weet ik nog niet</option>
+                  </select>
+                </div>
+
+                <div class="field">
+                  <label for="dimensions">Afmetingen, indien bekend</label>
+                  <input id="dimensions" name="afmetingen" placeholder="Bijv. 6 x 10 meter" />
+                </div>
+                <div class="field">
+                  <label for="planning">Wanneer wil je starten?</label>
+                  <select id="planning" name="planning">
+                    <option>Zo snel mogelijk</option>
+                    <option>Binnen 1 maand</option>
+                    <option>Binnen 3 maanden</option>
+                    <option>Dit jaar</option>
+                    <option>Ik oriënteer me nog</option>
+                  </select>
+                </div>
+
+                <div class="field full">
+                  <label>Welke onderdelen wil je graag?</label>
+                  <div class="checks">
+                    <label class="check"><input type="checkbox" name="elementen" value="Terras" /> Terras</label>
+                    <label class="check"><input type="checkbox" name="elementen" value="Bestrating" /> Bestrating</label>
+                    <label class="check"><input type="checkbox" name="elementen" value="Borders/beplanting" /> Borders/beplanting</label>
+                    <label class="check"><input type="checkbox" name="elementen" value="Gras of kunstgras" /> Gras/kunstgras</label>
+                    <label class="check"><input type="checkbox" name="elementen" value="Schutting/privacy" /> Schutting/privacy</label>
+                    <label class="check"><input type="checkbox" name="elementen" value="Tuinverlichting" /> Tuinverlichting</label>
+                    <label class="check"><input type="checkbox" name="elementen" value="Overkapping" /> Overkapping</label>
+                    <label class="check"><input type="checkbox" name="elementen" value="Speelplek" /> Speelplek</label>
+                  </div>
+                </div>
+
+                <div class="field full">
+                  <label for="description">Wat wil je veranderen?</label>
+                  <textarea id="description" name="omschrijving" placeholder="Bijv. oude bestrating eruit, meer groen, onderhoudsarm, plek voor loungeset, schutting vervangen..."></textarea>
+                </div>
+              </div>
+
+              <div class="consent">
+                <label>
+                  <input type="checkbox" name="toestemming_ai" value="Ja" required />
+                  <span>Ik ga akkoord dat mijn foto, aanvraag en contactgegevens worden verwerkt om een AI-tuinidee en aanvraagoverzicht te maken.</span>
+                </label>
+                <label id="partnerConsentLabel">
+                  <input type="checkbox" name="toestemming_delen" value="Ja" required />
+                  <span>Ik ga akkoord dat mijn aanvraag wordt gedeeld met de gekoppelde hovenier/partner zodat zij contact met mij kunnen opnemen over mijn tuinproject.</span>
+                </label>
+              </div>
+
+              <button class="btn full" id="submitBtn" type="submit">Verstuur mijn tuinidee-aanvraag →</button>
+              <div class="success" id="successBox">Aanvraag ontvangen. De hovenier ontvangt je foto, wensen en AI-intake. Je krijgt eventueel nog een bevestiging per e-mail.</div>
+              <div class="error" id="errorBox">Er ging iets mis met versturen. Controleer de webhook-instelling of probeer opnieuw.</div>
+              <div class="notice">Let op: dit is een eerste AI-intake en geen definitief tuinontwerp of offerte. Een hovenier moet de tuin altijd zelf beoordelen en inmeten.</div>
+            </form>
+
+            <aside class="card side-card">
+              <h3 style="margin-top:0; letter-spacing:-.03em; font-size:24px;">Wat ontvangt de hovenier?</h3>
+              <ol class="steps">
+                <li><span class="num">1</span><div><strong>Foto van de tuin</strong><span>Inclusief contactgegevens en plaats/postcode.</span></div></li>
+                <li><span class="num">2</span><div><strong>Wensen en budget</strong><span>Stijl, elementen, planning en budgetindicatie.</span></div></li>
+                <li><span class="num">3</span><div><strong>AI-samenvatting</strong><span>Make.com kan hierna de AI-prompt uitvoeren en de leadmail sturen.</span></div></li>
+                <li><span class="num">4</span><div><strong>Warme opvolging</strong><span>De hovenier kan sneller bellen met een concreet verhaal.</span></div></li>
+              </ol>
+            </aside>
+          </div>
+        </div>
+      </section>
+
+      <section class="section" id="voor-hoveniers">
+        <div class="container">
+          <div class="section-title">
+            <h2>Voor hoveniers: zet deze tool op je eigen website</h2>
+            <p>Geef een hovenier een eigen link of plaats de tool met een iframe op zijn website. De bezoeker ziet de naam van de hovenier en de aanvraag komt direct bij die hovenier binnen.</p>
+          </div>
+          <div class="card" style="padding:22px;">
+            <p><strong>Voorbeeld eigen link voor een hovenier:</strong></p>
+            <div class="embed-box" id="partnerLinkBox">https://offerzoklus.nl/ai-tuinplanner?partner=demo-hovenier</div>
+            <p><strong>Voorbeeld code om op de website van de hovenier te plaatsen:</strong></p>
+            <div class="embed-box" id="embedBox"></div>
+            <p class="hint">In deze demo werkt een hovenier-versie via <code>?partner=demo-hovenier</code>. Later kun je per hovenier een eigen link maken, bijvoorbeeld <code>?partner=jansen-hoveniers</code>.</p>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer>
+      <div class="container">
+        <span id="footerText">Powered by Offerzoklus.nl · AI Tuinplanner</span>
+      </div>
+    </footer>
+  </div>
+
+  <script>
+    /**
+     * VERVANG DEZE URL DOOR JE ECHTE MAKE.COM CUSTOM WEBHOOK.
+     * Voorbeeld: https://hook.eu1.make.com/xxxxxxxxxxxxxxxx
+     */
+    const MAKE_WEBHOOK_URL = "PASTE_YOUR_MAKE_WEBHOOK_URL_HERE";
+
+    const PARTNERS = {
+      "offerzoklus": {
+        partner_id: "offerzoklus",
+        name: "Offerzoklus",
+        displayName: "Offerzoklus AI Tuinplanner",
+        source: "offerzoklus",
+        brandColor: "#c9a84c",
+        leadRecipientLabel: "maximaal 3 passende hoveniers uit de regio",
+        heroTitle: "Upload je tuin en ontvang een eerste AI-tuinidee",
+        heroLead: "Upload een foto, kies je stijl en maak van je tuinwens een concrete aanvraag voor lokale hoveniers."
+      },
+      "demo-hovenier": {
+        partner_id: "demo-hovenier",
+        name: "Demo Hovenier",
+        displayName: "AI Tuinplanner van Demo Hovenier",
+        source: "partner_website",
+        brandColor: "#c9a84c",
+        leadRecipientLabel: "Demo Hovenier",
+        heroTitle: "Gratis AI-tuinidee van Demo Hovenier",
+        heroLead: "Upload een foto van je tuin. Demo Hovenier ontvangt je wensen, foto en AI-intake om gericht met je mee te denken."
+      }
+    };
+
+    const qs = new URLSearchParams(window.location.search);
+    const partnerKey = qs.get("partner") || "offerzoklus";
+    const partner = PARTNERS[partnerKey] || PARTNERS.offerzoklus;
+
+    document.documentElement.style.setProperty("--brand", partner.brandColor);
+    document.documentElement.style.setProperty("--brand-dark", shadeColor(partner.brandColor, -18));
+    document.documentElement.style.setProperty("--brand-soft", hexToRgba(partner.brandColor, .13));
+
+    document.getElementById("brandName").textContent = partner.displayName;
+    document.getElementById("partnerPill").textContent = partner.source === "partner_website"
+      ? "Hovenier-versie · Powered by Offerzoklus.nl"
+      : "AI Tuinplanner · Powered by Offerzoklus.nl";
+    document.getElementById("heroTitle").textContent = partner.heroTitle;
+    document.getElementById("heroLead").textContent = partner.heroLead;
+    document.getElementById("partnerIdInput").value = partner.partner_id;
+    document.getElementById("sourceInput").value = partner.source;
+    document.getElementById("partnerNameInput").value = partner.name;
+    document.getElementById("partnerConsentLabel").querySelector("span").textContent =
+      `Ik ga akkoord dat mijn aanvraag wordt gedeeld met ${partner.leadRecipientLabel}, zodat zij contact met mij kunnen opnemen over mijn tuinproject.`;
+    document.getElementById("footerText").textContent = partner.source === "partner_website"
+      ? `${partner.displayName} · Powered by Offerzoklus.nl`
+      : "Powered by Offerzoklus.nl · AI Tuinplanner";
+
+    const origin = window.location.origin || "https://offerzoklus.nl";
+    const embedUrl = `${origin}${window.location.pathname}?partner=demo-hovenier`;
+    document.getElementById("partnerLinkBox").textContent = embedUrl;
+    document.getElementById("embedBox").textContent = `<iframe\n  src="${embedUrl}"\n  width="100%"\n  height="980"\n  style="border:0; border-radius:16px; overflow:hidden;"\n  loading="lazy">\n</iframe>`;
+
+    const form = document.getElementById("gardenForm");
+    const submitBtn = document.getElementById("submitBtn");
+    const successBox = document.getElementById("successBox");
+    const errorBox = document.getElementById("errorBox");
+
+    form.addEventListener("submit", async (event) => {
+      event.preventDefault();
+      successBox.style.display = "none";
+      errorBox.style.display = "none";
+      submitBtn.disabled = true;
+      submitBtn.textContent = "Versturen...";
+
+      const formData = new FormData(form);
+      formData.append("submitted_at", new Date().toISOString());
+      formData.append("page_url", window.location.href);
+
+      // Checkboxes met dezelfde naam samenvoegen voor Make/Airtable gemak.
+      const elements = [...form.querySelectorAll('input[name="elementen"]:checked')].map(el => el.value);
+      formData.set("gewenste_elementen", elements.join(", "));
+      formData.delete("elementen");
+
+      try {
+        if (!MAKE_WEBHOOK_URL || MAKE_WEBHOOK_URL.includes("PASTE_YOUR")) {
+          console.log("Demo submit payload:", Object.fromEntries([...formData.entries()].filter(([_, v]) => !(v instanceof File))));
+          await new Promise(resolve => setTimeout(resolve, 700));
+          successBox.textContent = "Demo-aanvraag klaar. Voeg je Make.com webhook URL toe in de code om echt te versturen.";
+          successBox.style.display = "block";
+          form.reset();
+          return;
+        }
+
+        const response = await fetch(MAKE_WEBHOOK_URL, {
+          method: "POST",
+          body: formData
+        });
+
+        if (!response.ok) throw new Error(`Webhook response: ${response.status}`);
+
+        successBox.textContent = "Aanvraag verzonden. De hovenier ontvangt je foto, wensen en AI-intake.";
+        successBox.style.display = "block";
+        form.reset();
+      } catch (err) {
+        console.error(err);
+        errorBox.style.display = "block";
+      } finally {
+        submitBtn.disabled = false;
+        submitBtn.textContent = "Verstuur mijn tuinidee-aanvraag →";
+      }
+    });
+
+    function shadeColor(hex, percent) {
+      const f = parseInt(hex.slice(1), 16);
+      const t = percent < 0 ? 0 : 255;
+      const p = Math.abs(percent) / 100;
+      const R = f >> 16;
+      const G = f >> 8 & 0x00FF;
+      const B = f & 0x0000FF;
+      return "#" + (0x1000000 + (Math.round((t - R) * p) + R) * 0x10000 + (Math.round((t - G) * p) + G) * 0x100 + (Math.round((t - B) * p) + B)).toString(16).slice(1);
+    }
+
+    function hexToRgba(hex, alpha) {
+      const f = parseInt(hex.slice(1), 16);
+      const r = f >> 16;
+      const g = f >> 8 & 0x00FF;
+      const b = f & 0x0000FF;
+      return `rgba(${r}, ${g}, ${b}, ${alpha})`;
+    }
+  </script>
+<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'a0481fbd4e92670c',t:'MTc4MDI1MzAwNA=='};var a=document.createElement('script');a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+</html>
